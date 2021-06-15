@@ -1,8 +1,16 @@
 {
   "name": "create-a9-plugin",
   "version": "1.0.0",
+  "description": "Create a WordPress plugin automatically.",
+  "author": {
+    "name": "Awesome9",
+    "email": "me@awesome9.co",
+    "url": "https://awesome9.co"
+  },
   "main": "src/app.js",
-  "author": "Awesome9 <me@awesome9.co> (https://awesome9.co)",
+  "bin": {
+    "create-a9-plugin": "src/app.js"
+  },
   "scripts": {
     "dev": "mix",
     "watch": "mix watch",
@@ -32,6 +40,5 @@
   "bugs": {
     "url": "https://github.com/AwesomeNine/plugin-generator/issues"
   },
-  "homepage": "https://github.com/AwesomeNine/plugin-generator#readme",
-  "description": ""
+  "homepage": "https://github.com/AwesomeNine/plugin-generator#readme"
 }
