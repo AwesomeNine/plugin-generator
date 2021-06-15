@@ -1,0 +1,21 @@
+{
+  "name": "create-wp-plugin",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "dist": "mix --production"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "async": "^3.2.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "fs-extra": "^10.0.0",
+    "globby": "^11.0.3",
+    "lodash": "^4.17.21"
+  }
+}
