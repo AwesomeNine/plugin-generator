@@ -10,7 +10,7 @@
     "hot": "mix watch --hot",
     "dist": "mix --production"
   },
-  "devDependencies": {
+  "dependencies": {
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
     "async": "^3.2.0",
