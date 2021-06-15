@@ -1,6 +1,6 @@
 {
   "name": "create-a9-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create a WordPress plugin automatically.",
   "author": {
     "name": "Awesome9",
@@ -9,7 +9,7 @@
   },
   "main": "src/app.js",
   "bin": {
-    "create-a9-plugin": "src/app.js"
+    "new": "src/app.js"
   },
   "scripts": {
     "dev": "mix",
