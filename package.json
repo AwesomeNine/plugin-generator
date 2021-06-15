@@ -1,7 +1,8 @@
 {
-  "name": "create-wp-plugin",
+  "name": "create-a9-plugin",
   "version": "1.0.0",
   "main": "src/app.js",
+  "author": "Awesome9 <me@awesome9.co> (https://awesome9.co)",
   "scripts": {
     "dev": "mix",
     "watch": "mix watch",
@@ -17,5 +18,20 @@
     "fs-extra": "^10.0.0",
     "globby": "^11.0.3",
     "lodash": "^4.17.21"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AwesomeNine/plugin-generator.git"
+  },
+  "keywords": [
+    "wordpress",
+    "plugin",
+    "generator"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AwesomeNine/plugin-generator/issues"
+  },
+  "homepage": "https://github.com/AwesomeNine/plugin-generator#readme",
+  "description": ""
 }
