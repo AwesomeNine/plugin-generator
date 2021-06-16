@@ -1,8 +1,8 @@
 {
-	"name": "{{package.name}}",
+	"name": "{{package.vendor}}/{{package.name}}",
 	"description": "{{wp.description}}",
 	"type": "wordpress-plugin",
-	"license": "GPL-3.0",
+	"license": "GPL-3.0-or-later",
 	"authors": [
 		{
 			"name": "{{author.name}}",

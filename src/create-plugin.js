@@ -11,12 +11,13 @@ const argv = require( 'yargs-parser' )
 /**
  * Node dependencies
  */
-const { parse, resolve } = require( 'path' )
+const { resolve } = require( 'path' )
 
 class CreatePlugin {
     run( answers, callback ) {
         this.answers = answers
-        this.folder = resolve( './plugin' )
+        this.folder = process.cwd()
+        this.template = require.resolve( '../template' ).replace( '/index.js', '' )
 
         const args = argv( process.argv.slice( 2 ) )
         if ( undefined !== args.folder ) {
@@ -67,7 +68,7 @@ class CreatePlugin {
 
     copyIndex = ( next ) => {
         console.log( 'Copying golden silence!!' )
-        const indexFile = resolve( './template/index.php' )
+        const indexFile = this.template + '/index.php'
 
         eachSeries( this.dirs, ( dir, nextCopy ) => {
             fs.copy( indexFile, dir + '/index.php' ).then( nextCopy )
@@ -78,7 +79,7 @@ class CreatePlugin {
 
     copyConfigs = ( next ) => {
         console.log( 'Copying configuration files!!' )
-        const configs = resolve( './template/configs' )
+        const configs = this.template + '/configs'
         fs.copy( configs, this.folder ).then( next )
     }
 
@@ -99,7 +100,7 @@ class CreatePlugin {
 
     prepareFiles = ( next ) => {
         console.log( 'Preparing configuration files!!' )
-        const template = resolve( './template/plugin' )
+        const template = this.template + '/plugin'
         const configs =[
             '/uninstall.php',
             '/plugin.php',

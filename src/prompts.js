@@ -2,7 +2,7 @@
  * External dependencies
  */
 const inquirer = require( 'inquirer' )
-const { capitalize, kebabCase } = require( 'lodash' )
+const { kebabCase } = require( 'lodash' )
 
 module.exports = ( next ) => {
     const questions = [
@@ -10,12 +10,14 @@ module.exports = ( next ) => {
         {
             type: 'input',
             name: 'company.name',
-            message: 'Enter company name'
+            message: 'Enter company name',
+            default: 'Awesome9'
         },
         {
             type: 'input',
             name: 'company.url',
             message: 'Enter company website url',
+            default: 'https://awesome9.co',
             filter: ( val ) => val.toLowerCase()
         },
 
@@ -23,18 +25,21 @@ module.exports = ( next ) => {
         {
             type: 'input',
             name: 'author.name',
-            message: 'Enter author name'
+            message: 'Enter author name',
+            default: 'Shakeeb Ahmed'
         },
         {
             type: 'input',
             name: 'author.email',
             message: 'Enter author email',
+            default: 'me@shakeebahmed.com',
             filter: ( val ) => val.toLowerCase()
         },
         {
             type: 'input',
             name: 'author.url',
             message: 'Enter author website url',
+            default: 'https://shakeebahmed.com',
             filter: ( val ) => val.toLowerCase()
         },
 
@@ -49,6 +54,7 @@ module.exports = ( next ) => {
             type: 'input',
             name: 'version',
             message: 'Enter plugin version',
+            default: '1.0.0',
             filter: ( val ) => val.toLowerCase()
         },
         {
@@ -77,12 +83,9 @@ module.exports = ( next ) => {
 
             answers.year = date.getFullYear()
             answers.package = {
+                vendor: kebabCase( answers.company.name ),
                 name: kebabCase( answers.wp.name )
             }
-
-            // answers.php = {
-            //     package: capitalize( answers.wp.name ).replace( / /g, '' )
-            // }
 
             next( null, answers )
         } )
