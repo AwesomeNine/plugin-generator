@@ -1,6 +1,6 @@
 {
   "name": "a9wp-plugin",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Create a WordPress plugin automatically.",
   "author": {
     "name": "Awesome9",
@@ -34,6 +34,7 @@
     "async": "^3.2.0",
     "chalk": "^2.4.2",
     "cli-welcome": "^2.2.2",
+    "flat-cache": "^3.0.4",
     "fs-extra": "^10.0.0",
     "globby": "^11.0.3",
     "handlebars": "^1.3.0",

@@ -1,23 +1,35 @@
 /**
  * External dependencies
  */
+const { get } = require( 'lodash' )
 const inquirer = require( 'inquirer' )
 const { kebabCase } = require( 'lodash' )
 
+/**
+ * Node dependencies
+ */
+const { getCacheStore } = require( './helpers' )
+
 module.exports = ( next ) => {
+    const cache = getCacheStore()
+    let saved = cache.all()
+    saved = saved ? saved.answers : {}
+
+    const getCache = ( key, defaultVal = '' ) => get( saved, key, defaultVal )
+
     const questions = [
         // Company
         {
             type: 'input',
             name: 'company.name',
             message: 'Enter company name',
-            default: 'Awesome9'
+            default: getCache(  'company.name','Awesome9' ),
         },
         {
             type: 'input',
             name: 'company.url',
             message: 'Enter company website url',
-            default: 'https://awesome9.co',
+            default: getCache( 'company.url', 'https://awesome9.co' ),
             filter: ( val ) => val.toLowerCase()
         },
 
@@ -26,20 +38,20 @@ module.exports = ( next ) => {
             type: 'input',
             name: 'author.name',
             message: 'Enter author name',
-            default: 'Shakeeb Ahmed'
+            default: getCache( 'author.name', 'Shakeeb Ahmed' ),
         },
         {
             type: 'input',
             name: 'author.email',
             message: 'Enter author email',
-            default: 'me@shakeebahmed.com',
+            default: getCache( 'author.email', 'me@shakeebahmed.com' ),
             filter: ( val ) => val.toLowerCase()
         },
         {
             type: 'input',
             name: 'author.url',
             message: 'Enter author website url',
-            default: 'https://shakeebahmed.com',
+            default: getCache( 'author.url', 'https://shakeebahmed.com' ),
             filter: ( val ) => val.toLowerCase()
         },
 
@@ -48,24 +60,27 @@ module.exports = ( next ) => {
             type: 'input',
             name: 'wp.textDomain',
             message: 'Enter text domain for i18n',
+            default: getCache( 'wp.textDomain' ),
             filter: ( val ) => val.toLowerCase()
         },
         {
             type: 'input',
             name: 'version',
             message: 'Enter plugin version',
-            default: '1.0.0',
+            default: getCache( 'version', '1.0.0' ),
             filter: ( val ) => val.toLowerCase()
         },
         {
             type: 'input',
             name: 'wp.name',
-            message: 'Enter plugin name'
+            message: 'Enter plugin name',
+            default: getCache( 'wp.name' ),
         },
         {
             type: 'input',
             name: 'wp.description',
-            message: 'Enter plugin description'
+            message: 'Enter plugin description',
+            default: getCache( 'wp.description' ),
         },
 
         // PHP
@@ -73,6 +88,7 @@ module.exports = ( next ) => {
             type: 'input',
             name: 'php.package',
             message: 'Enter php package attribute',
+            default: getCache( 'php.package' ),
             filter: ( val ) => val.replace( / /g, '' )
         },
     ]
@@ -87,6 +103,8 @@ module.exports = ( next ) => {
                 name: kebabCase( answers.wp.name )
             }
 
+            cache.setKey( 'answers', answers )
+            cache.save()
             next( null, answers )
         } )
 }

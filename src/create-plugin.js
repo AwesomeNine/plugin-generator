@@ -5,24 +5,17 @@ const fs = require( 'fs-extra' )
 const series = require( 'async/series' )
 const eachSeries = require( 'async/eachSeries' )
 const Handlebars = require( 'handlebars' )
-const argv = require( 'yargs-parser' )
-
 
 /**
  * Node dependencies
  */
-const { resolve } = require( 'path' )
+const { getCurrentFolder } = require( './helpers' )
 
 class CreatePlugin {
     run( answers, callback ) {
         this.answers = answers
-        this.folder = process.cwd()
+        this.folder = getCurrentFolder()
         this.template = require.resolve( '../template' ).replace( '/index.js', '' )
-
-        const args = argv( process.argv.slice( 2 ) )
-        if ( undefined !== args.folder ) {
-            this.folder = resolve( './' + args.folder )
-        }
 
         series(
             [
