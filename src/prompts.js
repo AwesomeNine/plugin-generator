@@ -2,7 +2,7 @@
  * External dependencies
  */
 const inquirer = require( 'inquirer' )
-const { kebabCase } = require( 'lodash' )
+const { capitalize, kebabCase } = require( 'lodash' )
 
 module.exports = ( next ) => {
     const questions = [
@@ -47,7 +47,7 @@ module.exports = ( next ) => {
         },
         {
             type: 'input',
-            name: 'wp.version',
+            name: 'version',
             message: 'Enter plugin version',
             filter: ( val ) => val.toLowerCase()
         },
@@ -61,13 +61,28 @@ module.exports = ( next ) => {
             name: 'wp.description',
             message: 'Enter plugin description'
         },
+
+        // PHP
+        {
+            type: 'input',
+            name: 'php.package',
+            message: 'Enter php package attribute',
+            filter: ( val ) => val.replace( / /g, '' )
+        },
     ]
 
     inquirer.prompt( questions )
         .then( ( answers ) => {
+            const date = new Date()
+
+            answers.year = date.getFullYear()
             answers.package = {
                 name: kebabCase( answers.wp.name )
             }
+
+            // answers.php = {
+            //     package: capitalize( answers.wp.name ).replace( / /g, '' )
+            // }
 
             next( null, answers )
         } )

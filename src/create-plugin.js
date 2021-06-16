@@ -5,6 +5,8 @@ const fs = require( 'fs-extra' )
 const series = require( 'async/series' )
 const eachSeries = require( 'async/eachSeries' )
 const Handlebars = require( 'handlebars' )
+const argv = require( 'yargs-parser' )
+
 
 /**
  * Node dependencies
@@ -16,13 +18,18 @@ class CreatePlugin {
         this.answers = answers
         this.folder = resolve( './plugin' )
 
+        const args = argv( process.argv.slice( 2 ) )
+        if ( undefined !== args.folder ) {
+            this.folder = resolve( './' + args.folder )
+        }
+
         series(
             [
                 this.directories,
                 this.copyIndex,
                 this.copyConfigs,
                 this.prepareConfigs,
-                this.copyFiles,
+                this.prepareFiles,
             ],
             ( err, results ) => {
                 callback()
@@ -33,14 +40,21 @@ class CreatePlugin {
     directories = ( next ) => {
         console.log( 'Creating directories needed!!' )
         this.dirs = [
+            // Root
             this.folder,
-            this.folder + '/includes',
+            this.folder + '/templates',
+
+            // Assets
             this.folder + '/assets/css',
             this.folder + '/assets/scss',
             this.folder + '/assets/js',
             this.folder + '/assets/src',
             this.folder + '/assets/img',
             this.folder + '/assets/acf',
+
+            // Includes
+            this.folder + '/includes',
+            this.folder + '/includes/admin',
         ]
 
         eachSeries( this.dirs, ( dir, nextDir ) => {
@@ -77,19 +91,34 @@ class CreatePlugin {
         ]
 
         eachSeries( configs, ( file, nextCopy ) => {
-            const content = fs.readFileSync( file, 'utf8' )
-            const template = Handlebars.compile( content )
-            const rendered = template( this.answers )
-
-            fs.outputFile( file, rendered ).then( nextCopy )
+            this.renderFile( file, file, nextCopy )
         }, () => {
             next()
         } )
     }
 
-    copyFiles = ( next ) => {
-        console.log( 'copyFiles' )
-        next()
+    prepareFiles = ( next ) => {
+        console.log( 'Preparing configuration files!!' )
+        const template = resolve( './template/plugin' )
+        const configs =[
+            '/uninstall.php',
+            '/plugin.php',
+            '/includes/class-plugin.php',
+        ]
+
+        eachSeries( configs, ( file, nextCopy ) => {
+            this.renderFile( template + file, this.folder + file, nextCopy )
+        }, () => {
+            next()
+        } )
+    }
+
+    renderFile = ( src, dest, next ) => {
+        const content = fs.readFileSync( src, 'utf8' )
+        const template = Handlebars.compile( content )
+        const rendered = template( this.answers )
+
+        fs.outputFile( dest, rendered ).then( next )
     }
 }
 

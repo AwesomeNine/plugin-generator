@@ -1,5 +1,5 @@
 {
-  "name": "{{packageName}}",
+  "name": "{{package.name}}",
   "version": "{{version}}",
   "private": true,
   "main": ".eslintrc.js",
