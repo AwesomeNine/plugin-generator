@@ -1,6 +1,6 @@
 {
-  "name": "create-a9-plugin",
-  "version": "1.0.1",
+  "name": "a9wp-plugin",
+  "version": "1.0.0c",
   "description": "Create a WordPress plugin automatically.",
   "author": {
     "name": "Awesome9",
@@ -9,23 +9,10 @@
   },
   "main": "src/app.js",
   "bin": {
-    "new": "src/app.js"
+    "a9wp-plugin": "src/app.js"
   },
   "scripts": {
-    "dev": "mix",
-    "watch": "mix watch",
-    "watch-poll": "mix watch -- --watch-options-poll=1000",
-    "hot": "mix watch --hot",
-    "dist": "mix --production"
-  },
-  "dependencies": {
-    "@babel/core": "^7.14.3",
-    "@babel/preset-env": "^7.14.2",
-    "async": "^3.2.0",
-    "babel-plugin-module-resolver": "^4.1.0",
-    "fs-extra": "^10.0.0",
-    "globby": "^11.0.3",
-    "lodash": "^4.17.21"
+    "start": "node src/app.js"
   },
   "repository": {
     "type": "git",
@@ -40,5 +27,17 @@
   "bugs": {
     "url": "https://github.com/AwesomeNine/plugin-generator/issues"
   },
-  "homepage": "https://github.com/AwesomeNine/plugin-generator#readme"
+  "homepage": "https://github.com/AwesomeNine/plugin-generator#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "async": "^3.2.0",
+    "chalk": "^2.4.2",
+    "cli-welcome": "^2.2.2",
+    "fs-extra": "^10.0.0",
+    "globby": "^11.0.3",
+    "handlebars": "^1.3.0",
+    "inquirer": "^8.1.1",
+    "lodash": "^4.17.21"
+  }
 }

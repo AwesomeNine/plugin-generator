@@ -1,0 +1,16 @@
+{
+  "name": "{{packageName}}",
+  "version": "{{version}}",
+  "private": true,
+  "main": ".eslintrc.js",
+  "scripts": {
+    "dev": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "dist": "mix --production"
+  },
+  "devDependencies": {
+    "laravel-mix": "^5.0.9"
+  }
+}
