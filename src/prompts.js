@@ -82,6 +82,12 @@ module.exports = ( next ) => {
             message: 'Enter plugin description',
             default: getCache( 'wp.description' ),
         },
+        {
+            type: 'input',
+            name: 'wp.proxy',
+            message: 'Enter wordpress installation url',
+            default: getCache( 'wp.proxy' ),
+        },
 
         // PHP
         {
@@ -102,6 +108,7 @@ module.exports = ( next ) => {
                 vendor: kebabCase( answers.company.name ),
                 name: kebabCase( answers.wp.name )
             }
+            answers.functionName = answers.php.package.toLowerCase().replaceAll( '\\', '_' )
 
             cache.setKey( 'answers', answers )
             cache.save()

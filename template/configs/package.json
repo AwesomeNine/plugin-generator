@@ -11,6 +11,6 @@
     "dist": "mix --production"
   },
   "devDependencies": {
-    "laravel-mix": "^5.0.9"
+    "laravel-mix": "^6.0.49"
   }
 }

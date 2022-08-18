@@ -61,6 +61,9 @@ class Plugin {
 		if ( ! is_admin() ) {
 		}
 
+		// Common.
+		( new Assets() )->hooks();
+
 		add_action( 'init', [ $this, 'load_textdomain' ] );
 		add_filter( 'acf/settings/load_json', [ $this, 'add_acf_path' ] );
 

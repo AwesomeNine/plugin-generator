@@ -82,6 +82,7 @@ class CreatePlugin {
             this.folder + '/.phpcs.xml.dist',
             this.folder + '/composer.json',
             this.folder + '/package.json',
+            this.folder + '/webpack.mix.js',
         ]
 
         eachSeries( configs, ( file, nextCopy ) => {

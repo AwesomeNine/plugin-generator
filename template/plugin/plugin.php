@@ -32,6 +32,6 @@ require_once 'vendor/autoload.php';
  *
  * @return Plugin
  */
-function nhg_change_me() {
+function {{functionName}}() {
 	return \{{php.package}}\Plugin::get();
 }
