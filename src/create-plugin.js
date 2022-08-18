@@ -32,7 +32,7 @@ class CreatePlugin {
     }
 
     directories = ( next ) => {
-        console.log( 'Creating directories needed!!' )
+        console.log( 'Creating directories!!' )
         this.dirs = [
             // Root
             this.folder,
@@ -49,10 +49,10 @@ class CreatePlugin {
             // Includes
             this.folder + '/includes',
             this.folder + '/includes/admin',
+            this.folder + '/includes/interfaces',
         ]
 
         eachSeries( this.dirs, ( dir, nextDir ) => {
-            console.log( dir )
             fs.ensureDir( dir ).then( nextDir )
         }, () => {
             next()
@@ -93,12 +93,14 @@ class CreatePlugin {
     }
 
     prepareFiles = ( next ) => {
-        console.log( 'Preparing configuration files!!' )
+        console.log( 'Preparing plugin files!!' )
         const template = this.template + '/plugin'
         const configs =[
             '/uninstall.php',
             '/plugin.php',
             '/includes/class-plugin.php',
+            '/includes/class-assets.php',
+            '/includes/interfaces/interface-integration.php',
         ]
 
         eachSeries( configs, ( file, nextCopy ) => {

@@ -23,7 +23,9 @@ defined( 'ABSPATH' ) || exit;
 
 require_once 'vendor/autoload.php';
 
-\{{php.package}}\Plugin::get()
+use {{php.package}}\Plugin;
+
+Plugin::get()
 	->set_paths( __FILE__ )
 	->hooks();
 
@@ -33,5 +35,5 @@ require_once 'vendor/autoload.php';
  * @return Plugin
  */
 function {{functionName}}() {
-	return \{{php.package}}\Plugin::get();
+	return Plugin::get();
 }
