@@ -25,6 +25,15 @@ Run `awesome9-wp-plugin` command in your terminal and answer the questions and b
   npx awesome9-wp-plugin --folder=my-awesome-plugin
 ```
 
+Create files
+```js
+  npx awesome9-wp-plugin make:file "Dashboard"
+  npx awesome9-wp-plugin make:file "Admin\Report\Dashboard"
+```
+
+1. This one generate a file named `class-dashboard.php` in `includes` folder with namespace `${rootNamespace}`.
+2. This one generate a file name `class-dashboard.php` in `includes/admin/report` folder with namespace `${rootNamespace}\Admin\Report`.
+
 ## 📖 Changelog
 
 [See the changelog file](./CHANGELOG.md)

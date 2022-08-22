@@ -7,13 +7,13 @@ const eachSeries = require( 'async/eachSeries' )
 const Handlebars = require( 'handlebars' )
 
 /**
- * Node dependencies
+ * Internal dependencies
  */
 const { getCurrentFolder } = require( './helpers' )
 
 class CreatePlugin {
-    run( answers, callback ) {
-        this.answers = answers
+    run( settings, callback ) {
+        this.settings = settings
         this.folder = getCurrentFolder()
         this.template = require.resolve( '../template' ).replace( '/index.js', '' )
 
@@ -85,8 +85,8 @@ class CreatePlugin {
             this.folder + '/webpack.mix.js',
         ]
 
-        eachSeries( configs, ( file, nextCopy ) => {
-            this.renderFile( file, file, nextCopy )
+        eachSeries( configs, ( file, nextConfig ) => {
+            this.renderFile( file, file, nextConfig )
         }, () => {
             next()
         } )
@@ -95,7 +95,7 @@ class CreatePlugin {
     prepareFiles = ( next ) => {
         console.log( 'Preparing plugin files!!' )
         const template = this.template + '/plugin'
-        const configs =[
+        const files =[
             '/uninstall.php',
             '/plugin.php',
             '/includes/class-plugin.php',
@@ -103,8 +103,8 @@ class CreatePlugin {
             '/includes/interfaces/interface-integration.php',
         ]
 
-        eachSeries( configs, ( file, nextCopy ) => {
-            this.renderFile( template + file, this.folder + file, nextCopy )
+        eachSeries( files, ( file, nextFile ) => {
+            this.renderFile( template + file, this.folder + file, nextFile )
         }, () => {
             next()
         } )
@@ -113,13 +113,13 @@ class CreatePlugin {
     renderFile = ( src, dest, next ) => {
         const content = fs.readFileSync( src, 'utf8' )
         const template = Handlebars.compile( content )
-        const rendered = template( this.answers )
+        const rendered = template( this.settings )
 
         fs.outputFile( dest, rendered ).then( next )
     }
 }
 
-module.exports = ( answers, next ) => {
+module.exports = ( settings, next ) => {
     const generator = new CreatePlugin()
-    generator.run( answers, next )
+    generator.run( settings, next )
 }
