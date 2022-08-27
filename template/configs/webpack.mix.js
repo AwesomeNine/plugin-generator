@@ -1,8 +1,8 @@
-
 /**
  * External dependencies
  */
 const mix = require( 'laravel-mix' )
+require( 'laravel-mix-tailwind' )
 
 /**
  * Webpack Config
@@ -19,9 +19,9 @@ mix.webpackConfig(
  * CSS
  */
 mix.sass(
-	'assets/scss/theme.scss',
-	'assets/css/theme.css',
-).sourceMaps( true )
+	'assets/scss/app.scss',
+	'assets/css/app.css',
+).tailwind()
 
 /**
  * JavaScript

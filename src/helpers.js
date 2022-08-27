@@ -3,6 +3,7 @@
  */
 const argv = require( 'yargs-parser' )
 const flatCache = require( 'flat-cache' )
+const { spawn } = require('child_process')
 
 /**
  * Node dependencies
@@ -72,4 +73,23 @@ exports.getSettings = function () {
 
 exports.getCacheStore = function() {
     return flatCache.load( 'a9wp-scaffolding', exports.getRootFolder() )
+}
+
+exports.runCommand = function( command, args, next ) {
+    const commandSpawn = spawn( command, args, {
+        shell: true,
+        stdio: [ 'inherit' ]
+    } )
+
+    commandSpawn.stdout.on( 'data', (data) => {
+        console.log(data.toString())
+    })
+
+    commandSpawn.stderr.on( 'data', (data) => {
+        console.error(`Error: ${data}`)
+    })
+
+    commandSpawn.on( 'close', (code) => {
+        next()
+    })
 }

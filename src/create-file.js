@@ -9,7 +9,8 @@ const Handlebars = require( 'handlebars' )
 /**
  * Internal dependencies
  */
-const { getSettings, getRootFolder } = require( './helpers' )
+const { getSettings, getRootFolder, runCommand } = require( './helpers' )
+const { exit } = require('process')
 
 class CreateFile {
     run( controllerName, callback ) {
@@ -43,6 +44,9 @@ class CreateFile {
             [
                 this.directories,
                 this.prepareFiles,
+                (next) => {
+                    runCommand( 'composer', [ 'dump' ], next )
+                },
             ],
             ( err, results ) => {
                 callback()

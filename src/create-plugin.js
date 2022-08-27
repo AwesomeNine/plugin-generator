@@ -9,7 +9,7 @@ const Handlebars = require( 'handlebars' )
 /**
  * Internal dependencies
  */
-const { getCurrentFolder } = require( './helpers' )
+const { getCurrentFolder, runCommand } = require( './helpers' )
 
 class CreatePlugin {
     run( settings, callback ) {
@@ -24,6 +24,31 @@ class CreatePlugin {
                 this.copyConfigs,
                 this.prepareConfigs,
                 this.prepareFiles,
+                (next) => runCommand( 'composer', [ 'dump' ], next ),
+                (next) => {
+                    console.log( 'Installing Webpack' )
+                    runCommand( 'pnpm', [ 'i -D webpack' ], next )
+                },
+                (next) => {
+                    console.log( 'Installing Tailwind CSS' )
+                    runCommand( 'pnpm', [ 'i -D tailwindcss' ], next )
+                },
+                (next) => {
+                    console.log( 'Installing Postcss' )
+                    runCommand( 'pnpm', [ 'i -D postcss' ], next )
+                },
+                (next) => {
+                    console.log( 'Installing Autoprefixer' )
+                    runCommand( 'pnpm', [ 'i -D autoprefixer' ], next )
+                },
+                (next) => {
+                    console.log( 'Installing Laravel Mix' )
+                    runCommand( 'pnpm', [ 'i -D laravel-mix' ], next )
+                },
+                (next) => {
+                    console.log( 'Installing Laravel Mix Tailwind extension' )
+                    runCommand( 'pnpm', [ 'i -D laravel-mix-tailwind' ], next )
+                },
             ],
             ( err, results ) => {
                 callback()
@@ -72,8 +97,31 @@ class CreatePlugin {
 
     copyConfigs = ( next ) => {
         console.log( 'Copying configuration files!!' )
-        const configs = this.template + '/configs'
-        fs.copy( configs, this.folder ).then( next )
+        series(
+            [
+                (callback) => {
+                    fs.copy(
+                        this.template + '/configs',
+                        this.folder
+                    ).then( callback )
+                },
+                (callback) => {
+                    fs.copy(
+                        this.template + '/assets/app.js',
+                        this.folder + '/assets/src/app.js'
+                    ).then( callback )
+                },
+                (callback) => {
+                    fs.copy(
+                        this.template + '/assets/app.scss',
+                        this.folder + '/assets/scss/app.scss'
+                    ).then( callback )
+                },
+            ],
+            ( err, results ) => {
+                next()
+            }
+        )
     }
 
     prepareConfigs = ( next ) => {
