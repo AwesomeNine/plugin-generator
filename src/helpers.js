@@ -1,15 +1,15 @@
 /**
  * External dependencies
  */
-const argv = require( 'yargs-parser' )
-const flatCache = require( 'flat-cache' )
-const { spawn } = require('child_process')
+import argv from 'yargs-parser'
+import flatCache from 'flat-cache'
+import { spawn } from 'child_process'
 
 /**
  * Node dependencies
  */
-const { join, resolve } = require( 'path' )
-const { existsSync, readdirSync } = require( 'node:fs' )
+import { join, resolve } from 'path'
+import { existsSync, readdirSync } from 'node:fs'
 
 const getArguments = function() {
     return argv( process.argv.slice( 2 ) )
@@ -23,7 +23,8 @@ const folderEmptiness = function( folder ) {
 
     return false
 }
-exports.getRootFolder = function() {
+
+export function getRootFolder() {
     const check = function( folder ) {
         let final = folder
         const isEmptyFolder = folderEmptiness(folder)
@@ -32,8 +33,9 @@ exports.getRootFolder = function() {
             return folder
         }
 
-        const exists = existsSync( folder + '/a9wp-scaffolding' )
-        if (exists) {
+        const existsConfig = existsSync( folder + '/a9wp-scaffolding' )
+        const existsPkg = existsSync( folder + '/package.json' )
+        if (existsConfig || existsPkg) {
             return final
         }
 
@@ -41,10 +43,11 @@ exports.getRootFolder = function() {
         check(final)
         return final
     }
+
     return check(process.cwd())
 }
 
-exports.getCommand = function() {
+export function getCommand() {
     const args = getArguments()
     return {
         command: args._[0] || 'make:plugin',
@@ -52,7 +55,7 @@ exports.getCommand = function() {
     }
 }
 
-exports.getCurrentFolder = function() {
+export function getCurrentFolder() {
     let folder = process.cwd()
     const args = getArguments()
 
@@ -63,19 +66,19 @@ exports.getCurrentFolder = function() {
     return folder
 }
 
-exports.getSettings = function () {
-    const cache = exports.getCacheStore()
+export function getSettings() {
+    const cache = getCacheStore()
     let saved = cache.all()
     saved = saved ? saved.answers : {}
 
     return saved
 }
 
-exports.getCacheStore = function() {
-    return flatCache.load( 'a9wp-scaffolding', exports.getRootFolder() )
+export function getCacheStore() {
+    return flatCache.load( 'a9wp-scaffolding', getRootFolder() )
 }
 
-exports.runCommand = function( command, args, next ) {
+export function runCommand( command, args, next ) {
     const commandSpawn = spawn( command, args, {
         shell: true,
         stdio: [ 'inherit' ]

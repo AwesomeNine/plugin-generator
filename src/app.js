@@ -3,18 +3,18 @@
 /**
  * External dependencies
  */
-const waterfall = require( 'async/waterfall' )
-const logSymbols = require( 'log-symbols' )
-const chalk = require( 'chalk' )
+import { waterfall } from 'async'
+import logSymbols from 'log-symbols'
+import chalk from 'chalk'
 const green = chalk.bold.green
 
 /**
  * Internal dependencies
  */
-const prompts = require( './prompts' )
-const createFile = require('./create-file')
-const createPlugin = require( './create-plugin' )
-const { getCommand } = require( './helpers' )
+import prompts from './prompts.js'
+import createFile from './create-file.js'
+import createPlugin from './create-plugin.js'
+import { getCommand } from './helpers.js'
 
 /**
  * App

@@ -1,16 +1,16 @@
 /**
  * External dependencies
  */
-const { get } = require( 'lodash' )
-const inquirer = require( 'inquirer' )
-const { kebabCase } = require( 'lodash' )
+import inquirer from 'inquirer'
+import get from 'lodash/get.js'
+import kebabCase from 'lodash/kebabCase.js'
 
 /**
  * Node dependencies
  */
-const { getCacheStore } = require( './helpers' )
+import { getCacheStore } from './helpers.js'
 
-module.exports = ( next ) => {
+export default ( next ) => {
     const cache = getCacheStore()
     let saved = cache.all()
     saved = saved ? saved.answers : {}
@@ -108,7 +108,9 @@ module.exports = ( next ) => {
                 vendor: kebabCase( answers.company.name ),
                 name: kebabCase( answers.wp.name )
             }
-            answers.functionName = answers.php.package.toLowerCase().replaceAll( '\\', '_' )
+            answers.functionName = answers.php.package
+                .toLowerCase()
+                .replace( /\\/g, '_' )
 
             cache.setKey( 'answers', answers )
             cache.save()

@@ -1,16 +1,14 @@
 /**
  * External dependencies
  */
-const fs = require( 'fs-extra' )
-const series = require( 'async/series' )
-const eachSeries = require( 'async/eachSeries' )
-const Handlebars = require( 'handlebars' )
+import fs from 'fs-extra'
+import Handlebars from 'handlebars'
+import { series, eachSeries } from 'async'
 
 /**
  * Internal dependencies
  */
-const { getSettings, getRootFolder, runCommand } = require( './helpers' )
-const { exit } = require('process')
+import { getSettings, getRootFolder, runCommand } from './helpers.js'
 
 class CreateFile {
     run( controllerName, callback ) {
@@ -23,13 +21,13 @@ class CreateFile {
         this.settings.namespace = ''
         this.settings.className = namespace.pop()
         this.settings.heading = controllerName
-            .replaceAll('\\', ' ')
-            .replaceAll('_', ' ')
+            .replace(/\\/g, ' ')
+            .replace(/_/g, ' ')
 
         // Filename
         this.fileName = this.settings.className
             .toLowerCase()
-            .replaceAll('_', '-')
+            .replace(/_/g, '-')
         this.fileName = `class-${this.fileName}.php`
 
         // Folder
@@ -89,7 +87,7 @@ class CreateFile {
     }
 }
 
-module.exports = ( fileName, next ) => {
+export default ( fileName, next ) => {
     const generator = new CreateFile()
     generator.run( fileName, next )
 }

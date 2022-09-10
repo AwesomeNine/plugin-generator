@@ -1,21 +1,21 @@
 /**
  * External dependencies
  */
-const fs = require( 'fs-extra' )
-const series = require( 'async/series' )
-const eachSeries = require( 'async/eachSeries' )
-const Handlebars = require( 'handlebars' )
+import fs from 'fs-extra'
+import Handlebars from 'handlebars'
+import { series, eachSeries } from 'async'
+import { resolve } from 'path'
 
 /**
  * Internal dependencies
  */
-const { getCurrentFolder, runCommand } = require( './helpers' )
+import { getCurrentFolder, runCommand } from './helpers.js'
 
 class CreatePlugin {
     run( settings, callback ) {
         this.settings = settings
         this.folder = getCurrentFolder()
-        this.template = require.resolve( '../template' ).replace( '/index.js', '' )
+        this.template = resolve( './template' ).replace( '/index.js', '' )
 
         series(
             [
@@ -167,7 +167,7 @@ class CreatePlugin {
     }
 }
 
-module.exports = ( settings, next ) => {
+export default ( settings, next ) => {
     const generator = new CreatePlugin()
     generator.run( settings, next )
 }
