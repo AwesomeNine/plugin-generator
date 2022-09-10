@@ -15,12 +15,17 @@ import createFile from './create-file.js'
 import createPlugin from './create-plugin.js'
 import { getCommand } from './helpers.js'
 
-const green = chalk.bold.green
-
 /**
  * App
  */
 const app = async () => {
+    console.log(
+        [
+            chalk.bold.green( 'Awesome WordPress Plugin Generator' ),
+            chalk.bgYellow( chalk.black( chalk.italic( ' version: 1.0.14 ' ) ) )
+        ].join(" ")
+    );
+
     const { command, args } = getCommand()
 
     if ( 'make:file' === command ) {
@@ -32,7 +37,7 @@ const app = async () => {
                 createFile,
             ],
             ( err, results ) => {
-                console.log( `${logSymbols.success} ${green(`All done!`)}` )
+                console.log( `${logSymbols.success} ${chalk.bold.green(`All done!`)}` )
             }
         )
     }
@@ -44,7 +49,7 @@ const app = async () => {
                 createPlugin,
             ],
             ( err, results ) => {
-                console.log( `${logSymbols.success} ${green(`All done!`)}` )
+                console.log( `${logSymbols.success} ${chalk.bold.green(`All done!`)}` )
             }
         )
     }

@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 1.0.14 - 10.09.2022
+
+Enhancement: Add Awesome package selection
+
 ## 1.0.13 - 10.09.2022
 
 Enhancement: Convert to ES6

@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import chalk from 'chalk'
 import argv from 'yargs-parser'
 import flatCache from 'flat-cache'
 import { spawn } from 'child_process'
@@ -23,6 +24,10 @@ const folderEmptiness = function( folder ) {
     }
 
     return false
+}
+
+export function heading(title) {
+    console.log( chalk.bold.green( 'Ⓞ ' + title ) )
 }
 
 export function getTemplateFolder() {
@@ -99,7 +104,7 @@ export function runCommand( command, args, next ) {
     })
 
     commandSpawn.stderr.on( 'data', (data) => {
-        console.error(`Error: ${data}`)
+        console.error(data.toString())
     })
 
     commandSpawn.on( 'close', (code) => {

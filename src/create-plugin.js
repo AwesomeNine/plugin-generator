@@ -2,14 +2,14 @@
  * External dependencies
  */
 import fs from 'fs-extra'
+import chalk from 'chalk'
 import Handlebars from 'handlebars'
 import { series, eachSeries } from 'async'
-import { resolve } from 'path'
 
 /**
  * Internal dependencies
  */
-import { getCurrentFolder, runCommand, getTemplateFolder } from './helpers.js'
+import { getCurrentFolder, runCommand, getTemplateFolder, heading } from './helpers.js'
 
 class CreatePlugin {
     run( settings, callback ) {
@@ -24,29 +24,47 @@ class CreatePlugin {
                 this.copyConfigs,
                 this.prepareConfigs,
                 this.prepareFiles,
-                (next) => runCommand( 'composer', [ 'dump' ], next ),
                 (next) => {
-                    console.log( 'Installing Webpack' )
+                    heading( 'Installing Composer' )
+                    runCommand( 'composer', [ 'dump' ], next )
+                },
+                (next) => {
+                    if ( 0 === this.settings.awesomePackages.length ) {
+                        next()
+                    }
+
+                    heading( 'Installing selected PHP Packages' )
+                    eachSeries( this.settings.awesomePackages, ( name, nextPkg ) => {
+                        let pkg = name.split( ': ' )
+                        pkg = 'awesome9/' + pkg[0].toLowerCase()
+                        console.log( chalk.red( 'Installing ' + name ) )
+                        runCommand( 'composer', [ 'require', pkg ], nextPkg )
+                    }, () => {
+                        next()
+                    } )
+                },
+                (next) => {
+                    heading( 'Installing Webpack' )
                     runCommand( 'pnpm', [ 'i -D webpack' ], next )
                 },
                 (next) => {
-                    console.log( 'Installing Tailwind CSS' )
+                    heading( 'Installing Tailwind CSS' )
                     runCommand( 'pnpm', [ 'i -D tailwindcss' ], next )
                 },
                 (next) => {
-                    console.log( 'Installing Postcss' )
+                    heading( 'Installing Postcss' )
                     runCommand( 'pnpm', [ 'i -D postcss' ], next )
                 },
                 (next) => {
-                    console.log( 'Installing Autoprefixer' )
+                    heading( 'Installing Autoprefixer' )
                     runCommand( 'pnpm', [ 'i -D autoprefixer' ], next )
                 },
                 (next) => {
-                    console.log( 'Installing Laravel Mix' )
+                    heading( 'Installing Laravel Mix' )
                     runCommand( 'pnpm', [ 'i -D laravel-mix' ], next )
                 },
                 (next) => {
-                    console.log( 'Installing Laravel Mix Tailwind extension' )
+                    heading( 'Installing Laravel Mix Tailwind extension' )
                     runCommand( 'pnpm', [ 'i -D laravel-mix-tailwind' ], next )
                 },
             ],
@@ -57,7 +75,7 @@ class CreatePlugin {
     }
 
     directories = ( next ) => {
-        console.log( 'Creating directories!!' )
+        heading( 'Creating directories!!' )
         this.dirs = [
             // Root
             this.folder,
@@ -85,7 +103,7 @@ class CreatePlugin {
     }
 
     copyIndex = ( next ) => {
-        console.log( 'Copying golden silence!!' )
+        heading( 'Copying golden silence!!' )
         const indexFile = this.template + '/index.php'
 
         eachSeries( this.dirs, ( dir, nextCopy ) => {
@@ -96,7 +114,7 @@ class CreatePlugin {
     }
 
     copyConfigs = ( next ) => {
-        console.log( 'Copying configuration files!!' )
+        heading( 'Copying configuration files!!' )
         series(
             [
                 (callback) => {
@@ -125,7 +143,7 @@ class CreatePlugin {
     }
 
     prepareConfigs = ( next ) => {
-        console.log( 'Preparing configuration files!!' )
+        heading( 'Preparing configuration files!!' )
         const configs =[
             this.folder + '/.phpcs.xml.dist',
             this.folder + '/composer.json',
@@ -141,7 +159,7 @@ class CreatePlugin {
     }
 
     prepareFiles = ( next ) => {
-        console.log( 'Preparing plugin files!!' )
+        heading( 'Preparing plugin files!!' )
         const template = this.template + '/plugin'
         const files =[
             '/uninstall.php',

@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "awesome9-wp-plugin",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Create a WordPress plugin automatically.",
   "author": {
     "name": "Awesome9",

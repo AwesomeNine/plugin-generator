@@ -97,6 +97,22 @@ export default ( next ) => {
             default: getCache( 'php.package' ),
             filter: ( val ) => val.replace( / /g, '' )
         },
+        // Packages
+        {
+            type: 'checkbox',
+            name: 'awesomePackages',
+            message: 'Select awesome packages to install',
+            default: getCache(  'company.name','Awesome9' ),
+            choices: [
+                { name: 'Database: An expressive WordPress SQL query builder' },
+                { name: 'JSON: JSON manager to localize data' },
+                { name: 'Notifications: Notification manager for admin' },
+                { name: 'Options: Option manager' },
+                { name: 'Requirements: Requirement checker' },
+                { name: 'Templates: Wrapper for WordPress Filesystem and Templates' },
+                { name: 'Updates: Update manager for plugin' },
+            ]
+        },
     ]
 
     inquirer.prompt( questions )
