@@ -9,13 +9,13 @@ import { resolve } from 'path'
 /**
  * Internal dependencies
  */
-import { getCurrentFolder, runCommand } from './helpers.js'
+import { getCurrentFolder, runCommand, getTemplateFolder } from './helpers.js'
 
 class CreatePlugin {
     run( settings, callback ) {
         this.settings = settings
         this.folder = getCurrentFolder()
-        this.template = resolve( './template' ).replace( '/index.js', '' )
+        this.template = getTemplateFolder()
 
         series(
             [

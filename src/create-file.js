@@ -8,13 +8,13 @@ import { series, eachSeries } from 'async'
 /**
  * Internal dependencies
  */
-import { getSettings, getRootFolder, runCommand } from './helpers.js'
+import { getSettings, getRootFolder, getTemplateFolder, runCommand } from './helpers.js'
 
 class CreateFile {
     run( controllerName, callback ) {
         const namespace = controllerName.split('\\')
 
-        this.template = require.resolve( '../template' ).replace( '/index.js', '' )
+        this.template = getTemplateFolder()
 
         // Settings
         this.settings = getSettings()

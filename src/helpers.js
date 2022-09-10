@@ -4,6 +4,7 @@
 import argv from 'yargs-parser'
 import flatCache from 'flat-cache'
 import { spawn } from 'child_process'
+import { createRequire } from 'node:module'
 
 /**
  * Node dependencies
@@ -24,9 +25,15 @@ const folderEmptiness = function( folder ) {
     return false
 }
 
+export function getTemplateFolder() {
+    const require = createRequire( import.meta.url )
+    return require.resolve( '../template' )
+        .replace( '/index.js', '' )
+}
+
 export function getRootFolder() {
+    let counter = 0
     const check = function( folder ) {
-        let final = folder
         const isEmptyFolder = folderEmptiness(folder)
 
         if (isEmptyFolder) {
@@ -36,12 +43,15 @@ export function getRootFolder() {
         const existsConfig = existsSync( folder + '/a9wp-scaffolding' )
         const existsPkg = existsSync( folder + '/package.json' )
         if (existsConfig || existsPkg) {
-            return final
+            return folder
         }
 
-        final = join(folder, '../')
-        check(final)
-        return final
+        if ( 5 === counter ) {
+            return process.cwd()
+        }
+
+        counter++
+        return check(join(folder, '../'))
     }
 
     return check(process.cwd())

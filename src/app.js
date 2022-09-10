@@ -3,10 +3,9 @@
 /**
  * External dependencies
  */
+import chalk from 'chalk'
 import { waterfall } from 'async'
 import logSymbols from 'log-symbols'
-import chalk from 'chalk'
-const green = chalk.bold.green
 
 /**
  * Internal dependencies
@@ -15,6 +14,8 @@ import prompts from './prompts.js'
 import createFile from './create-file.js'
 import createPlugin from './create-plugin.js'
 import { getCommand } from './helpers.js'
+
+const green = chalk.bold.green
 
 /**
  * App
