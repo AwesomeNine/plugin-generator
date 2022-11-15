@@ -31,6 +31,7 @@ class CreatePlugin {
                 (next) => {
                     if ( 0 === this.settings.awesomePackages.length ) {
                         next()
+                        return
                     }
 
                     heading( 'Installing selected PHP Packages' )
