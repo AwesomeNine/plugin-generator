@@ -27,8 +27,8 @@ Run `wp-awesome9` command in your terminal and answer the questions and boom, it
 
 Create files
 ```js
-  npx wp-awesome9 make:file "Dashboard"
-  npx wp-awesome9 make:file "Admin\Report\Dashboard"
+  npx wp-awesome9 make:file --file="Dashboard"
+  npx wp-awesome9 make:file --file="Admin\Report\Dashboard"
 ```
 
 1. This one generate a file named `class-dashboard.php` in `includes` folder with namespace `${rootNamespace}`.

@@ -11,7 +11,7 @@ import logSymbols from 'log-symbols'
 import { heading } from "../../helpers.js"
 import createFile from './create-file.js'
 
-export function execute() {
+export function execute(args) {
     heading('Scaffoling plugin...')
     console.log('');
 

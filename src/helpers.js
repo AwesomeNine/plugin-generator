@@ -16,7 +16,7 @@ import { createRequire } from 'node:module'
 
 const CACHE_FILE = 'wp-awesome9-scaffolding'
 
-const getArguments = function() {
+export const getArguments = function() {
     return argv( process.argv.slice( 2 ) )
 }
 

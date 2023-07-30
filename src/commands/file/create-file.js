@@ -11,8 +11,8 @@ import { series, eachSeries } from 'async'
 import { getSettings, getRootFolder, getTemplateFolder, runCommand } from '../../helpers.js'
 
 class CreateFile {
-    run( controllerName, callback ) {
-        const namespace = controllerName.split('\\')
+    run( args, callback ) {
+        const namespace = args.file.split('\\')
 
         this.template = getTemplateFolder()
 
@@ -20,7 +20,7 @@ class CreateFile {
         this.settings = getSettings()
         this.settings.namespace = ''
         this.settings.className = namespace.pop()
-        this.settings.heading = controllerName
+        this.settings.heading = args.file
             .replace(/\\/g, ' ')
             .replace(/_/g, ' ')
 
