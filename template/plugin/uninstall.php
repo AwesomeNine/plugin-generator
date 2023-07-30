@@ -5,7 +5,7 @@
  *
  * @package {{php.package}}
  * @author  {{author.name}} <{{author.email}}>
- * @since   {{version}}
+ * @since   {{wp.version}}
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;

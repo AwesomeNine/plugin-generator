@@ -8,7 +8,7 @@ import { series, eachSeries } from 'async'
 /**
  * Internal dependencies
  */
-import { getSettings, getRootFolder, getTemplateFolder, runCommand } from './helpers.js'
+import { getSettings, getRootFolder, getTemplateFolder, runCommand } from '../../helpers.js'
 
 class CreateFile {
     run( controllerName, callback ) {

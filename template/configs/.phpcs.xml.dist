@@ -1,69 +1,39 @@
 <?xml version="1.0"?>
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="{{company.name}}" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+<ruleset name="{{company.name}}">
+	<description>{{company.name}} Coding Standards.</description>
 
-	<description>A custom set of rules to check for a {{company.name}}</description>
+	<!-- PHPCS arguments: -->
+	<arg value="ps" />
+	<arg name="colors"/>
+	<arg name="parallel" value="20" />
+	<arg name="extensions" value="php"/>
+
+	<!-- Set files and paths: -->
+	<file>.</file>
 
 	<!-- Exclude paths -->
 	<exclude-pattern>*/languages/*</exclude-pattern>
+	<exclude-pattern>*/lib/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/tests/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/index.php</exclude-pattern>
 
-	<!-- Include the WordPress-Extra standard. -->
-	<rule ref="WordPress-Extra">
-		<!--
-		We may want a middle ground though. The best way to do this is add the
-		entire ruleset, then rule by rule, remove ones that don't suit a project.
-		We can do this by running `phpcs` with the '-s' flag, which allows us to
-		see the names of the sniffs reporting errors.
-		Once we know the sniff names, we can opt to exclude sniffs which don't
-		suit our project like so.
+	<!-- PHPCompatibility configs: -->
+	<config name="testVersion" value="7.2-" />
+	<config name="minimum_supported_wp_version" value="4.9" />
 
-		The below two examples just show how you can exclude rules.
-		They are not intended as advice about which sniffs to exclude.
-		-->
-
-		<!--
-		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing"/>
-		<exclude name="WordPress.Security.EscapeOutput"/>
-		-->
+	<rule ref="PHPCompatibility">
+		<include-pattern>*\.php$</include-pattern>
+		<exclude-pattern>tests/</exclude-pattern>
 	</rule>
 
-	<!-- Let's also check that everything is properly documented. -->
-	<rule ref="WordPress-Docs"/>
-
-	<!-- Add in some extra rules from other standards. -->
-	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
-	<rule ref="Generic.Commenting.Todo"/>
-
-	<!-- Check for PHP cross-version compatibility. -->
-	<!--
-	To enable this, the PHPCompatibilityWP standard needs
-	to be installed.
-	See the readme for installation instructions:
-	https://github.com/PHPCompatibility/PHPCompatibilityWP
-	For more information, also see:
-	https://github.com/PHPCompatibility/PHPCompatibility
-	-->
-	<config name="testVersion" value="5.6-"/>
-
-	<!--
-	To get the optimal benefits of using WPCS, we should add a couple of
-	custom properties.
-	Adjust the values of these properties to fit our needs.
-
-	For information on additional custom properties available, check out
-	the wiki:
-	https://github.com/WordPress/WordPress-Coding-Standards/wiki/Customizable-sniff-properties
-	-->
-	<config name="minimum_supported_wp_version" value="4.9"/>
+	<!-- Rules: -->
+    <rule ref="WordPress"/>
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array">
-				<element value="{{wp.textDomain}}"/>
-			</property>
+			<property name="text_domain" type="array" value="{{wp.textDomain}}" />
 		</properties>
 	</rule>
 
@@ -73,12 +43,44 @@
 
 	<rule ref="WordPress.NamingConventions.ValidHookName">
 		<properties>
-			<property name="additionalWordDelimiters" value="-/."/>
+			<property name="additionalWordDelimiters" value="-"/>
 		</properties>
 	</rule>
 
-	<rule ref="Generic.Arrays">
-		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
+	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
+		<exclude-pattern>includes/**/abstract-*.php</exclude-pattern>
+		<exclude-pattern>includes/**/interface-*.php</exclude-pattern>
 	</rule>
+
+	<!-- Elevate these rules to an error, so it gets printed on commit   -->
+    <rule ref="Generic.Formatting.MultipleStatementAlignment">
+        <type>error</type>
+    </rule>
+
+    <!-- Disable short arrays: -->
+	<rule ref="WordPress-Extra">
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+	</rule>
+
+	<!-- Enforce short arrays: -->
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
+	<!-- Method names MUST NOT be prefixed with a single underscore to indicate protected or private visibility. That is, an underscore prefix explicitly has no meaning. -->
+    <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+        <type>error</type>
+        <message>Method name "%s" must not be prefixed with an underscore to indicate visibility</message>
+    </rule>
+
+	<rule ref="WordPress.PHP.StrictInArray">
+        <type>error</type>
+    </rule>
+
+	<rule ref="WordPress.PHP.StrictComparisons">
+        <type>error</type>
+    </rule>
+
+	<rule ref="WordPress.CodeAnalysis.AssignmentInCondition">
+        <type>error</type>
+    </rule>
 
 </ruleset>

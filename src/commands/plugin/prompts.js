@@ -8,7 +8,7 @@ import kebabCase from 'lodash/kebabCase.js'
 /**
  * Node dependencies
  */
-import { getCacheStore } from './helpers.js'
+import { getCacheStore } from '../../helpers.js'
 
 export default ( next ) => {
     const cache = getCacheStore()
@@ -65,7 +65,7 @@ export default ( next ) => {
         },
         {
             type: 'input',
-            name: 'version',
+            name: 'wp.version',
             message: 'Enter plugin version',
             default: getCache( 'version', '1.0.0' ),
             filter: ( val ) => val.toLowerCase()
@@ -93,7 +93,7 @@ export default ( next ) => {
         {
             type: 'input',
             name: 'php.package',
-            message: 'Enter php package attribute',
+            message: 'Enter php package namespace',
             default: getCache( 'php.package' ),
             filter: ( val ) => val.replace( / /g, '' )
         },
@@ -118,8 +118,8 @@ export default ( next ) => {
     inquirer.prompt( questions )
         .then( ( answers ) => {
             const date = new Date()
-
             answers.year = date.getFullYear()
+
             answers.package = {
                 vendor: kebabCase( answers.company.name ),
                 name: kebabCase( answers.wp.name )

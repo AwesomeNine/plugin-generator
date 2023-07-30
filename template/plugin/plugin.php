@@ -3,7 +3,7 @@
  * Plugin Name:       {{wp.name}}
  * Plugin URI:        {{company.url}}/{{package.name}}
  * Description:       {{wp.description}}
- * Version:           {{version}}
+ * Version:           {{wp.version}}
  * Author:            {{author.name}}
  * Author URI:        {{author.url}}
  * Text Domain:       {{wp.textDomain}}
@@ -16,7 +16,7 @@
  * @package    {{php.package}}
  * @copyright  Copyright (C) {{year}}, {{company.name}}.
  * @author     {{author.name}} <{{author.email}}>
- * @since      {{version}}
+ * @since      {{wp.version}}
  */
 
 defined( 'ABSPATH' ) || exit;

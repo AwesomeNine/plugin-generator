@@ -1,8 +1,12 @@
 {
 	"name": "{{package.vendor}}/{{package.name}}",
-	"description": "{{wp.description}}",
+    "description": "{{wp.description}}",
+	"homepage": "{{company.url}}",
+	"version": "1.42.1",
 	"type": "wordpress-plugin",
 	"license": "GPL-3.0-or-later",
+	"prefer-stable": true,
+	"minimum-stability": "dev",
 	"authors": [
 		{
 			"name": "{{author.name}}",
@@ -11,14 +15,31 @@
 		}
 	],
 	"require": {
-		"php": ">=5.6"
+		"php": ">=7.2"
 	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
-	"autoload" : {
-		"classmap" : [ "includes/" ]
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"phpcompatibility/phpcompatibility-wp": "*",
+		"wp-coding-standards/wpcs": "^2.3"
 	},
 	"config": {
-		"optimize-autoloader": true
+		"optimize-autoloader": true,
+		"sort-packages": true,
+		"platform": {
+			"php": "7.4"
+		},
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"autoload": {
+		"classmap": [
+			"includes/"
+		]
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"composer global require wp-cli/wp-cli"
+		]
 	}
 }

@@ -13,22 +13,22 @@ Quickly bootstrap your next awesome WordPress plugin with just one command!
 ## 💾 Installation
 
 ```js
-  npx awesome9-wp-plugin
+  npx wp-awesome9
 ```
 
 ## 🕹 Usage
 
-Run `awesome9-wp-plugin` command in your terminal and answer the questions and boom, it will auto-magically generate a WordPress plugin for you without stress!
+Run `wp-awesome9` command in your terminal and answer the questions and boom, it will auto-magically generate a WordPress plugin for you without stress!
 
 ```js
-  npx awesome9-wp-plugin
-  npx awesome9-wp-plugin --folder=my-awesome-plugin
+  npx wp-awesome9
+  npx wp-awesome9 --folder=my-awesome-plugin
 ```
 
 Create files
 ```js
-  npx awesome9-wp-plugin make:file "Dashboard"
-  npx awesome9-wp-plugin make:file "Admin\Report\Dashboard"
+  npx wp-awesome9 make:file "Dashboard"
+  npx wp-awesome9 make:file "Admin\Report\Dashboard"
 ```
 
 1. This one generate a file named `class-dashboard.php` in `includes` folder with namespace `${rootNamespace}`.

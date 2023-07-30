@@ -8,12 +8,17 @@ import { waterfall } from 'async'
 import logSymbols from 'log-symbols'
 
 /**
- * Internal dependencies
+ * Internal Dependencies
  */
-import prompts from './prompts.js'
-import createFile from './create-file.js'
-import createPlugin from './create-plugin.js'
 import { getCommand } from './helpers.js'
+import packageDetails from '../package.json' assert { type: "json" }
+
+/**
+ * Commands
+ */
+import { execute as helpCommand } from './commands/help/index.js'
+import { execute as pluginCommand } from './commands/plugin/index.js'
+import { execute as fileCommand } from './commands/file/index.js'
 
 /**
  * App
@@ -21,37 +26,23 @@ import { getCommand } from './helpers.js'
 const app = async () => {
     console.log(
         [
-            chalk.bold.green( 'Awesome WordPress Plugin Generator' ),
-            chalk.bgYellow( chalk.black( chalk.italic( ' version: 1.0.14 ' ) ) )
+            chalk.hex('#FADC00').inverse.bold('Awesome WordPress Plugin Scaffolding'),
+            chalk.white( 'v' + packageDetails.version ),
+            chalk.dim( 'by Shakeeb Ahmed' )
         ].join(" ")
     );
 
     const { command, args } = getCommand()
-
-    if ( 'make:file' === command ) {
-        waterfall(
-            [
-                function( next ) {
-                    next(null, args)
-                },
-                createFile,
-            ],
-            ( err, results ) => {
-                console.log( `${logSymbols.success} ${chalk.bold.green(`All done!`)}` )
-            }
-        )
+    if ( 'help' === command ) {
+        helpCommand()
     }
 
     if ( 'make:plugin' === command ) {
-        waterfall(
-            [
-                prompts,
-                createPlugin,
-            ],
-            ( err, results ) => {
-                console.log( `${logSymbols.success} ${chalk.bold.green(`All done!`)}` )
-            }
-        )
+        pluginCommand(args)
+    }
+
+    if ( 'make:file' === command ) {
+       fileCommand(args)
     }
 }
 

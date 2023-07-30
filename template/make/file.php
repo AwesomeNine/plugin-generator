@@ -4,7 +4,7 @@
  *
  * @package {{php.package}}
  * @author  {{author.name}} <{{author.email}}>
- * @since   {{version}}
+ * @since   {{wp.version}}
  */
 
 namespace {{php.package}}{{namespace}};

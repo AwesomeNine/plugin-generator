@@ -9,7 +9,7 @@ import { series, eachSeries } from 'async'
 /**
  * Internal dependencies
  */
-import { getCurrentFolder, runCommand, getTemplateFolder, heading } from './helpers.js'
+import { getCurrentFolder, runCommand, getTemplateFolder, heading } from '../../helpers.js'
 
 class CreatePlugin {
     run( settings, callback ) {
@@ -17,13 +17,43 @@ class CreatePlugin {
         this.folder = getCurrentFolder()
         this.template = getTemplateFolder()
 
+        this.dirs = [
+            // Root
+            this.folder,
+            this.folder + '/languages',
+            this.folder + '/templates',
+
+            // Assets
+            this.folder + '/assets/css',
+            this.folder + '/assets/scss',
+            this.folder + '/assets/js',
+            this.folder + '/assets/src',
+            this.folder + '/assets/img',
+            this.folder + '/assets/acf',
+
+            // Includes
+            this.folder + '/includes',
+            this.folder + '/includes/abstracts',
+            this.folder + '/includes/admin',
+            this.folder + '/includes/database',
+            this.folder + '/includes/interfaces',
+            this.folder + '/includes/models',
+            this.folder + '/includes/traits',
+            this.folder + '/includes/utilities',
+        ]
+
         series(
             [
                 this.directories,
                 this.copyIndex,
                 this.copyConfigs,
+                this.copyTools,
                 this.prepareConfigs,
                 this.prepareFiles,
+                (next) => {
+                    heading( 'Installing Composer' )
+                    runCommand( 'composer', [ 'install' ], next )
+                },
                 (next) => {
                     heading( 'Installing Composer' )
                     runCommand( 'composer', [ 'dump' ], next )
@@ -45,29 +75,17 @@ class CreatePlugin {
                     } )
                 },
                 (next) => {
-                    heading( 'Installing Webpack' )
-                    runCommand( 'pnpm', [ 'i -D webpack' ], next )
+                    heading( 'Checking GIT repo' )
+                    runCommand( 'git rev-parse --is-inside-work-tree && echo "OK" || git init', [], next )
+                },
+                this.installNpm,
+                (next) => {
+                    heading( 'Adding Pre-Commit' )
+                    runCommand( 'pnpm run prepare', [], next )
                 },
                 (next) => {
-                    heading( 'Installing Tailwind CSS' )
-                    runCommand( 'pnpm', [ 'i -D tailwindcss' ], next )
-                },
-                (next) => {
-                    heading( 'Installing Postcss' )
-                    runCommand( 'pnpm', [ 'i -D postcss' ], next )
-                },
-                (next) => {
-                    heading( 'Installing Autoprefixer' )
-                    runCommand( 'pnpm', [ 'i -D autoprefixer' ], next )
-                },
-                (next) => {
-                    heading( 'Installing Laravel Mix' )
-                    runCommand( 'pnpm', [ 'i -D laravel-mix' ], next )
-                },
-                (next) => {
-                    heading( 'Installing Laravel Mix Tailwind extension' )
-                    runCommand( 'pnpm', [ 'i -D laravel-mix-tailwind' ], next )
-                },
+                    runCommand( 'pnpx husky add .husky/pre-commit "pnpx lint-staged"', [], next )
+                }
             ],
             ( err, results ) => {
                 callback()
@@ -77,24 +95,6 @@ class CreatePlugin {
 
     directories = ( next ) => {
         heading( 'Creating directories!!' )
-        this.dirs = [
-            // Root
-            this.folder,
-            this.folder + '/templates',
-
-            // Assets
-            this.folder + '/assets/css',
-            this.folder + '/assets/scss',
-            this.folder + '/assets/js',
-            this.folder + '/assets/src',
-            this.folder + '/assets/img',
-            this.folder + '/assets/acf',
-
-            // Includes
-            this.folder + '/includes',
-            this.folder + '/includes/admin',
-            this.folder + '/includes/interfaces',
-        ]
 
         eachSeries( this.dirs, ( dir, nextDir ) => {
             fs.ensureDir( dir ).then( nextDir )
@@ -109,13 +109,12 @@ class CreatePlugin {
 
         eachSeries( this.dirs, ( dir, nextCopy ) => {
             fs.copy( indexFile, dir + '/index.php' ).then( nextCopy )
-        }, () => {
-            next()
-        } )
+        }, next )
     }
 
     copyConfigs = ( next ) => {
         heading( 'Copying configuration files!!' )
+
         series(
             [
                 (callback) => {
@@ -143,8 +142,17 @@ class CreatePlugin {
         )
     }
 
+    copyTools = ( next ) => {
+        heading( 'Copying tools files!!' )
+        fs.copySync(
+            this.template + '/tools',
+            this.folder + '/tools',
+        )
+        next()
+    }
+
     prepareConfigs = ( next ) => {
-        heading( 'Preparing configuration files!!' )
+         heading( 'Preparing configuration files!!' )
         const configs =[
             this.folder + '/.phpcs.xml.dist',
             this.folder + '/composer.json',
@@ -172,6 +180,38 @@ class CreatePlugin {
 
         eachSeries( files, ( file, nextFile ) => {
             this.renderFile( template + file, this.folder + file, nextFile )
+        }, () => {
+            next()
+        } )
+    }
+
+    installNpm = (next) => {
+        heading( 'Installing NPM Packages' )
+        const packages =[
+            'prettier',
+            'stylelint',
+            '@wordpress/eslint-plugin',
+            '@wordpress/stylelint-config',
+            'async',
+            'browser-sync',
+            'browser-sync-webpack-plugin',
+            'chalk@4.1.2',
+            'eslint-plugin-prettier',
+            'husky',
+            'laravel-mix',
+            'laravel-mix-tailwind',
+            'lint-staged',
+            'resolve-url-loader',
+            'sass',
+            'sass-loader',
+            'shelljs',
+            'tailwindcss',
+            'webpack',
+        ]
+
+        eachSeries( packages, ( pack, nextPackage ) => {
+            console.log( chalk.yellow( 'pnpm i -D ' + pack ) )
+            runCommand( 'pnpm', [ 'i -D ' + pack ], nextPackage )
         }, () => {
             next()
         } )

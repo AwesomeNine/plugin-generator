@@ -1,8 +1,8 @@
 {
   "type": "module",
-  "name": "awesome9-wp-plugin",
-  "version": "1.0.15",
-  "description": "Create a WordPress plugin automatically.",
+  "name": "wp-awesome9",
+  "version": "2.0.0",
+  "description": "WordPress plugin boilderplate.",
   "author": {
     "name": "Awesome9",
     "email": "me@awesome9.co",
@@ -10,7 +10,7 @@
   },
   "main": "src/app.js",
   "bin": {
-    "awesome9-wp-plugin": "src/app.js"
+    "wp-awesome9": "src/app.js"
   },
   "scripts": {
     "start": "node src/app.js"
@@ -34,7 +34,6 @@
     "@babel/preset-env": "^7.19.0",
     "async": "^3.2.4",
     "chalk": "^5.0.1",
-    "cli-welcome": "^2.2.2",
     "flat-cache": "^3.0.4",
     "fs-extra": "^10.1.0",
     "globby": "^13.1.2",

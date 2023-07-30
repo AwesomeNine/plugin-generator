@@ -15,9 +15,8 @@ project.properties
 *.sublime-workspace
 .sublimelinterrc
 
-# Caches
+# Eslint Cache
 .eslintcache
-.stylelintcache
 
 # Environment files
 wp-cli.local.yml
@@ -31,8 +30,17 @@ node_modules/
 # Composer
 vendor/
 bin/composer/**/vendor/
+composer.json
+composer.lock
+
+# Config files
+.*
+*-lock*
 
 # Support .gitkeep Files
 !.gitkeep
-webpack.mix.local.js
-mix-manifest.json
+
+# Project files
+assets/css
+assets/js
+tools/
