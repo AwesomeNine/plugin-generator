@@ -4,7 +4,7 @@
 const mix = require('laravel-mix');
 const { join } = require('path');
 require('./tools/laravel-mix/wp-pot');
-require( 'laravel-mix-tailwind' )
+require('laravel-mix-tailwind')
 
 // Webpack Config.
 mix.webpackConfig({
@@ -24,7 +24,7 @@ mix.alias({
  * Browsersync
  */
 mix.browserSync({
-	proxy: localConfig.wpUrl,
+	proxy: '{{wp.proxy}}',
 	ghostMode: false,
 	notify: false,
 	ui: false,
@@ -47,15 +47,9 @@ mix.wpPot({
 /**
  * CSS
  */
-mix.sass(
-	'assets/scss/app.scss',
-	'assets/css/app.css',
-).tailwind()
+mix.sass('assets/scss/app.scss', 'assets/css/app.css').tailwind()
 
 /**
  * JavaScript
  */
-mix.js(
-	'assets/src/app.js',
-	'assets/js/app.js',
-)
+mix.js('assets/src/app.js', 'assets/js/app.js')
