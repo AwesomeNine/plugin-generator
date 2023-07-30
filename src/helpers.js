@@ -14,7 +14,7 @@ import fs from 'fs'
 import { join } from 'path'
 import { createRequire } from 'node:module'
 
-const CACHE_FILE = 'adv-ads-scaffolding'
+const CACHE_FILE = 'wp-awesome9-scaffolding'
 
 const getArguments = function() {
     return argv( process.argv.slice( 2 ) )
