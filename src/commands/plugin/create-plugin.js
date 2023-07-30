@@ -81,10 +81,10 @@ class CreatePlugin {
                 this.installNpm,
                 (next) => {
                     heading( 'Adding Pre-Commit' )
-                    runCommand( 'pnpm run prepare', [], next )
+                    runCommand( 'npm run prepare', [], next )
                 },
                 (next) => {
-                    runCommand( 'pnpx husky add .husky/pre-commit "pnpx lint-staged"', [], next )
+                    runCommand( 'npx husky add .husky/pre-commit "npx lint-staged"', [], next )
                 }
             ],
             ( err, results ) => {
@@ -210,8 +210,8 @@ class CreatePlugin {
         ]
 
         eachSeries( packages, ( pack, nextPackage ) => {
-            console.log( chalk.yellow( 'pnpm i -D ' + pack ) )
-            runCommand( 'pnpm', [ 'i -D ' + pack ], nextPackage )
+            console.log( chalk.yellow( 'npm i -D ' + pack ) )
+            runCommand( 'npm', [ 'i -D ' + pack ], nextPackage )
         }, () => {
             next()
         } )
