@@ -9,6 +9,7 @@ import { createRequire } from 'node:module'
  * Internal Dependencies
  */
 import { CACHE_FILE } from './cache.js'
+import { getArguments } from './command.js'
 
 export function folderEmptiness(folder) {
     const folderFiles = fs.readdirSync(folder)
