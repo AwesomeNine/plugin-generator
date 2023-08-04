@@ -1,9 +1,23 @@
 {
   "extends": "@wordpress/stylelint-config",
   "ignoreFiles": [
-	"**/*.js",
-	"assets/css/*.min.css",
-	"node_modules/**/*.css",
-	"vendor/**/*.css"
-  ]
+	  "**/*.js",
+	  "assets/css/*.min.css",
+	  "node_modules/**/*.css",
+	  "vendor/**/*.css"
+  ],
+  "rules": {
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind",
+          "apply",
+          "variants",
+          "responsive",
+          "screen"
+        ]
+      }
+    ]
+  }
 }

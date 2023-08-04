@@ -9,7 +9,6 @@ class WordPressPot {
     this.requiresReload = `
       Dependencies have been installed. Please run again.
     `
-
     return ['shelljs']
   }
 
@@ -22,8 +21,12 @@ class WordPressPot {
     const {output, file, domain, skipJS = false, exclude = [] } = this.config
 
 	exclude.push(".github");
-	exclude.push("vendor");
-	exclude.push("tools");
+    exclude.push(".husky");
+    exclude.push(".wordpress-org");
+    exclude.push("node_modules");
+    exclude.push("packages");
+    exclude.push("tools");
+    exclude.push("vendor");
 
 	const rootPath = process.cwd()
 

@@ -3,6 +3,8 @@
 
 const mix = require('laravel-mix');
 const { join } = require('path');
+const packageData = require('./package.json');
+
 require('./tools/laravel-mix/wp-pot');
 require('laravel-mix-tailwind')
 
@@ -37,12 +39,13 @@ mix.browserSync({
  * WordPress translation
  */
 mix.wpPot({
-	output: '/languages/',
-	file: '{{wp.textDomain}}.pot',
+	output: packageData.wpPot.output,
+	file: packageData.wpPot.file,
 	skipJS: true,
-	domain: '{{wp.textDomain}}',
+	domain: packageData.wpPot.domain,
 });
 
+/* That's all, start editing from here! */
 
 /**
  * CSS

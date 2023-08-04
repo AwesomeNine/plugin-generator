@@ -2,7 +2,7 @@
 	"name": "{{package.vendor}}/{{package.name}}",
     "description": "{{wp.description}}",
 	"homepage": "{{company.url}}",
-	"version": "1.42.1",
+	"version": "{{wp.version}}",
 	"type": "wordpress-plugin",
 	"license": "GPL-3.0-or-later",
 	"prefer-stable": true,

@@ -16,19 +16,20 @@
 *.webp binary
 
 # Remove files for archives generated using `git archive`.
-/.*                export-ignore
-changelog.txt      export-ignore
-composer.*         export-ignore
-package*.json      export-ignore
-phpcs.*            export-ignore
-phpunit.*          export-ignore
-README.md          export-ignore
+/.*              export-ignore
+changelog.txt    export-ignore
+composer.*       export-ignore
+package*.json    export-ignore
+phpcs.*          export-ignore
+phpunit.*        export-ignore
+README.md        export-ignore
 
 # Remove folders for archives generated using `git archive`.
-assets/admin/scss    export-ignore
-assets/admin/src     export-ignore
-assets/frontend/scss export-ignore
-assets/frontend/src  export-ignore
-bin/                 export-ignore
-.changelog/          export-ignore
-tests/               export-ignore
+assets/admin/scss       export-ignore
+assets/admin/src        export-ignore
+assets/frontend/scss    export-ignore
+assets/frontend/src     export-ignore
+bin/                    export-ignore
+.changelog/             export-ignore
+tests/                  export-ignore
+wp-awesome9-scaffolding export-ignore

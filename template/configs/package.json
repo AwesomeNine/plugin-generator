@@ -6,12 +6,12 @@
 	"private": true,
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/advanced-ads/{{package.name}}.git"
+		"url": "https://github.com/awesomenine/{{package.name}}.git"
 	},
-	"author": "AdvancedAds",
+	"author": "{{author.name}}",
 	"license": "GPL-3.0-or-later",
 	"bugs": {
-		"url": "https://github.com/advanced-ads/{{package.name}}/issues"
+		"url": "https://github.com/awesomenine/{{package.name}}/issues"
 	},
 	"scripts": {
 		"prepare": "husky install",
@@ -19,7 +19,7 @@
 		"watch": "mix watch",
 		"watch-poll": "mix watch -- --watch-options-poll=1000",
 		"hot": "mix watch --hot",
-		"dist": "mix --production",
+		"build": "mix --production",
 		"lint": "lint-staged",
 		"lint:css": "stylelint \"**/*.css\" --cache",
 		"lint:js": "eslint . --cache",
