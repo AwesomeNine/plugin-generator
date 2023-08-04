@@ -8,7 +8,7 @@ import kebabCase from 'lodash/kebabCase.js'
 /**
  * Node dependencies
  */
-import { getCacheStore } from '../../helpers.js'
+import { getCacheStore } from '../../utilities/index.js'
 
 export default ( next ) => {
     const cache = getCacheStore()

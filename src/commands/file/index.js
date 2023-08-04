@@ -1,18 +1,16 @@
 /**
  * External Dependencies
  */
-import chalk from 'chalk'
 import { waterfall } from 'async'
-import logSymbols from 'log-symbols'
 
 /**
  * Internal Dependencies
  */
-import { heading } from "../../helpers.js"
 import createFile from './create-file.js'
+import { heading, msgErrorTitle, msgSuccessTitle } from "../../utilities/index.js"
 
-export function execute(args) {
-    heading('Scaffoling plugin...')
+export default function(args) {
+    heading('Scaffoling plugin file')
     console.log('');
 
     waterfall(
@@ -23,7 +21,13 @@ export function execute(args) {
             createFile,
         ],
         ( err, results ) => {
-            console.log( `${logSymbols.success} ${chalk.bold.green(`All done!`)}` )
+			console.log('');
+			if (err) {
+				msgErrorTitle('We failed!!!')
+				return
+			}
+
+            msgSuccessTitle('All done!')
         }
     )
 }

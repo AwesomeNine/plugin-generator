@@ -8,7 +8,7 @@ import logSymbols from 'log-symbols'
 /**
  * Internal Dependencies
  */
-import { heading } from "../../helpers.js"
+import { heading } from "../../utilities/index.js"
 import prompts from './prompts.js'
 import createPlugin from './create-plugin.js'
 

@@ -4,21 +4,17 @@
  * External dependencies
  */
 import chalk from 'chalk'
-import { waterfall } from 'async'
-import logSymbols from 'log-symbols'
 
 /**
  * Internal Dependencies
  */
-import { getCommand } from './helpers.js'
+import { getCommand } from './utilities/index.js'
 import packageDetails from '../package.json' assert { type: "json" }
 
 /**
  * Commands
  */
-import { execute as helpCommand } from './commands/help/index.js'
-import { execute as pluginCommand } from './commands/plugin/index.js'
-import { execute as fileCommand } from './commands/file/index.js'
+import * as commands from './commands/index.js'
 
 /**
  * App
@@ -34,15 +30,15 @@ const app = async () => {
 
     const { command, args } = getCommand()
     if ( 'help' === command ) {
-        helpCommand()
+        commands.help()
     }
 
     if ( 'make:plugin' === command ) {
-        pluginCommand(args)
+        commands.makePlugin(args)
     }
 
     if ( 'make:file' === command ) {
-       fileCommand(args)
+       commands.makeFile(args)
     }
 }
 

@@ -9,7 +9,7 @@ import { series, eachSeries } from 'async'
 /**
  * Internal dependencies
  */
-import { getCurrentFolder, runCommand, getTemplateFolder, heading } from '../../helpers.js'
+import { getCurrentFolder, runCommand, getTemplateFolder, heading } from '../../utilities/index.js'
 
 class CreatePlugin {
     run( settings, callback ) {

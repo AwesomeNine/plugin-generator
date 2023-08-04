@@ -1,4 +1,4 @@
-import { heading, onNewLine } from "../../helpers.js"
+import { heading, onNewLine } from "../../utilities/index.js"
 
 export function execute() {
     heading('Help Command Menu')
