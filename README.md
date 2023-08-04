@@ -3,7 +3,7 @@
 [![NPM](https://img.shields.io/npm/v/awesome9-wp-plugin.svg)](https://www.npmjs.com/package/awesome9-wp-plugin) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 <p align="center">
-	<img src="https://img.icons8.com/nolan/256/services.png"/>
+	<img src="https://img.icons8.com/nolan/256/wordpress.png"/>
 </p>
 
 ## 📃 Introduction
