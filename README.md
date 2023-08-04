@@ -29,6 +29,7 @@ Create files
 ```js
   npx wp-awesome9 make:file --file="Dashboard"
   npx wp-awesome9 make:file --file="Admin\Report\Dashboard"
+  npx wp-awesome9 make:file --file="Admin\Report\Dashboard" --singleton
 ```
 
 1. This one generate a file named `class-dashboard.php` in `includes` folder with namespace `${rootNamespace}`.
