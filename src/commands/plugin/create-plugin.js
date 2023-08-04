@@ -188,8 +188,7 @@ class CreatePlugin {
     installNpm = (next) => {
         heading( 'Installing NPM Packages' )
         const packages =[
-            'prettier',
-            '@wordpress/eslint-plugin',
+			'@wordpress/eslint-plugin',
             '@wordpress/stylelint-config',
             'async',
             'browser-sync',
@@ -200,6 +199,7 @@ class CreatePlugin {
             'laravel-mix',
             'laravel-mix-tailwind',
             'lint-staged',
+            'prettier',
             'resolve-url-loader',
             'sass',
             'sass-loader',

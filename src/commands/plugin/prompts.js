@@ -1,21 +1,19 @@
 /**
  * External dependencies
  */
-import inquirer from 'inquirer'
 import get from 'lodash/get.js'
+import inquirer from 'inquirer'
 import kebabCase from 'lodash/kebabCase.js'
 
 /**
  * Node dependencies
  */
-import { getCacheStore } from '../../utilities/index.js'
+import { getCacheStore, getSettings } from '../../utilities/index.js'
 
 export default ( next ) => {
     const cache = getCacheStore()
-    let saved = cache.all()
-    saved = saved ? saved.answers : {}
-
-    const getCache = ( key, defaultVal = '' ) => get( saved, key, defaultVal )
+    const settings = getSettings()
+    const getAnswer = ( key, defaultVal = '' ) => get( settings, key, defaultVal )
 
     const questions = [
         // Company
@@ -23,13 +21,13 @@ export default ( next ) => {
             type: 'input',
             name: 'company.name',
             message: 'Enter company name',
-            default: getCache(  'company.name','Awesome9' ),
+            default: getAnswer( 'company.name','Awesome9' ),
         },
         {
             type: 'input',
             name: 'company.url',
             message: 'Enter company website url',
-            default: getCache( 'company.url', 'https://awesome9.co' ),
+            default: getAnswer( 'company.url', 'https://awesome9.co' ),
             filter: ( val ) => val.toLowerCase()
         },
 
@@ -38,20 +36,20 @@ export default ( next ) => {
             type: 'input',
             name: 'author.name',
             message: 'Enter author name',
-            default: getCache( 'author.name', 'Shakeeb Ahmed' ),
+            default: getAnswer( 'author.name', 'Shakeeb Ahmed' ),
         },
         {
             type: 'input',
             name: 'author.email',
             message: 'Enter author email',
-            default: getCache( 'author.email', 'me@shakeebahmed.com' ),
+            default: getAnswer( 'author.email', 'me@shakeebahmed.com' ),
             filter: ( val ) => val.toLowerCase()
         },
         {
             type: 'input',
             name: 'author.url',
             message: 'Enter author website url',
-            default: getCache( 'author.url', 'https://shakeebahmed.com' ),
+            default: getAnswer( 'author.url', 'https://shakeebahmed.com' ),
             filter: ( val ) => val.toLowerCase()
         },
 
@@ -60,33 +58,33 @@ export default ( next ) => {
             type: 'input',
             name: 'wp.textDomain',
             message: 'Enter text domain for i18n',
-            default: getCache( 'wp.textDomain' ),
+            default: getAnswer( 'wp.textDomain' ),
             filter: ( val ) => val.toLowerCase()
         },
         {
             type: 'input',
             name: 'wp.version',
             message: 'Enter plugin version',
-            default: getCache( 'version', '1.0.0' ),
+            default: getAnswer( 'version', '1.0.0' ),
             filter: ( val ) => val.toLowerCase()
         },
         {
             type: 'input',
             name: 'wp.name',
             message: 'Enter plugin name',
-            default: getCache( 'wp.name' ),
+            default: getAnswer( 'wp.name' ),
         },
         {
             type: 'input',
             name: 'wp.description',
             message: 'Enter plugin description',
-            default: getCache( 'wp.description' ),
+            default: getAnswer( 'wp.description' ),
         },
         {
             type: 'input',
             name: 'wp.proxy',
             message: 'Enter wordpress installation url',
-            default: getCache( 'wp.proxy' ),
+            default: getAnswer( 'wp.proxy' ),
         },
 
         // PHP
@@ -94,7 +92,7 @@ export default ( next ) => {
             type: 'input',
             name: 'php.package',
             message: 'Enter php package namespace',
-            default: getCache( 'php.package' ),
+            default: getAnswer( 'php.package' ),
             filter: ( val ) => val.replace( / /g, '' )
         },
         // Packages
@@ -102,7 +100,7 @@ export default ( next ) => {
             type: 'checkbox',
             name: 'awesomePackages',
             message: 'Select awesome packages to install',
-            default: getCache(  'company.name','Awesome9' ),
+            default: getAnswer(  'company.name','Awesome9' ),
             choices: [
                 { name: 'Database: An expressive WordPress SQL query builder' },
                 { name: 'JSON: JSON manager to localize data' },
