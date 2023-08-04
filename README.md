@@ -1,6 +1,6 @@
 # WordPress Scaffolding
 
-[![NPM](https://img.shields.io/npm/v/awesome9-wp-plugin.svg)](https://www.npmjs.com/package/awesome9-wp-plugin) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/wp-awesome9.svg)](https://www.npmjs.com/package/wp-awesome9) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 <p align="center">
 	<img src="https://img.icons8.com/nolan/256/wordpress.png"/>
