@@ -189,7 +189,6 @@ class CreatePlugin {
         heading( 'Installing NPM Packages' )
         const packages =[
             'prettier',
-            'stylelint',
             '@wordpress/eslint-plugin',
             '@wordpress/stylelint-config',
             'async',
