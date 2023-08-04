@@ -26,6 +26,11 @@ class Assets implements WordPress_Integration {
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue' ] );
 	}
 
+	/**
+	 * Register assets.
+	 *
+	 * @return void
+	 */
 	public function register() {
 		$theme_uri     = get_template_directory_uri();
 		$theme_version = wp_get_theme()->get( 'Version' );

@@ -144,13 +144,15 @@ function prepareConfigFiles(next) {
 function preparePluginFiles(next) {
 	const template = pluginData.template + '/plugin'
 	const files =[
-		'/uninstall.php',
-		'/plugin.php',
-		'/includes/class-plugin.php',
-		'/includes/class-assets.php',
-		'/includes/interfaces/interface-integration.php',
 		'/assets/src/app.js',
 		'/assets/scss/app.scss',
+		'/includes/admin/class-admin.php',
+		'/includes/interfaces/interface-integration.php',
+		'/includes/class-assets.php',
+		'/includes/class-frontend.php',
+		'/includes/class-plugin.php',
+		'/plugin.php',
+		'/uninstall.php',
 	]
 
 	write('Preparing plugin files...')

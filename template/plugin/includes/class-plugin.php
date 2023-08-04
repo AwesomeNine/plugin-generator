@@ -17,6 +17,27 @@ defined( 'ABSPATH' ) || exit;
 class Plugin {
 
 	/**
+	 * Plugin path
+	 *
+	 * @var string
+	 */
+	public $path = null;
+
+	/**
+	 * Plugin url
+	 *
+	 * @var string
+	 */
+	public $url = null;
+
+	/**
+	 * Plugin relative path
+	 *
+	 * @var string
+	 */
+	public $rel_path = null;
+
+	/**
 	 * Main instance
 	 *
 	 * Ensure only one instance is loaded or can be loaded.
@@ -55,10 +76,12 @@ class Plugin {
 	public function hooks() {
 		// Admin Only.
 		if ( is_admin() ) {
+			( new Admin() )->hooks();
 		}
 
 		// Frontend.
 		if ( ! is_admin() ) {
+			( new Frontend() )->hooks();
 		}
 
 		// Common.
