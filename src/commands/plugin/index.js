@@ -8,12 +8,9 @@ import { waterfall } from 'async'
  */
 import prompts from './prompts.js'
 import createPlugin from './create-plugin.js'
-import { heading, msgErrorTitle, msgSuccessTitle } from "../../utilities/index.js"
+import { msgErrorTitle, msgSuccessTitle } from "../../utilities/index.js"
 
 export function execute() {
-    heading('Scaffoling plugin...')
-    console.log('');
-
     waterfall(
         [
            prompts,

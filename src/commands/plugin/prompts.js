@@ -8,7 +8,7 @@ import kebabCase from 'lodash/kebabCase.js'
 /**
  * Node dependencies
  */
-import { getCacheStore, getSettings } from '../../utilities/index.js'
+import { getCacheStore, getSettings, heading } from '../../utilities/index.js'
 
 export default ( next ) => {
     const cache = getCacheStore()
@@ -102,16 +102,18 @@ export default ( next ) => {
             message: 'Select awesome packages to install',
             default: getAnswer(  'company.name','Awesome9' ),
             choices: [
-                { name: 'Database: An expressive WordPress SQL query builder' },
-                { name: 'JSON: JSON manager to localize data' },
-                { name: 'Notifications: Notification manager for admin' },
-                { name: 'Options: Option manager' },
-                { name: 'Requirements: Requirement checker' },
-                { name: 'Templates: Wrapper for WordPress Filesystem and Templates' },
-                { name: 'Updates: Update manager for plugin' },
+                { value:'awesome9/database', name: 'Database: an expressive WordPress SQL query builder' },
+                { value:'awesome9/json', name: 'JSON: ease of managing data localization within WordPress' },
+                { value:'awesome9/notifications', name: 'Notifications: ease of managing temporary and permanent notification within WordPress' },
+                { value:'awesome9/options', name: 'Options: ease of managing options within WordPress.' },
+                { value:'awesome9/requirements', name: 'Requirements: test environment requirements to run your plugin' },
+                { value:'awesome9/templates', name: 'Templates: wrapper for WordPress Filesystem and Templates' },
+                { value:'awesome9/updates', name: 'Updates: to run update routines within a plugin' },
             ]
         },
     ]
+
+	heading('How you want your plugin?')
 
     inquirer.prompt( questions )
         .then( ( answers ) => {
