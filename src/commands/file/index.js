@@ -20,7 +20,7 @@ export default function(args) {
             },
             createFile,
         ],
-        ( err, results ) => {
+        (err) => {
 			console.log('');
 			if (err) {
 				msgErrorTitle('We failed!!!')
