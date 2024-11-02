@@ -2,59 +2,38 @@
  * Node dependencies
  */
 import fs from 'fs'
-import { join } from 'path'
+import path from 'path'
 import { createRequire } from 'node:module'
 
+let projectRoot = null
+
 /**
- * Internal Dependencies
+ * Get the root folder of the project by searching for a known root file (e.g., package.json).
+ *
+ * @throws {Error} - Throws an error if the root folder cannot be found.
+ *
+ * @param {string} startDir - The directory to start searching from. Defaults to the current directory.
+ *
+ * @returns {string} - The absolute path to the project root folder.
  */
-import { CACHE_FILE } from './cache.js'
-import { getArguments } from './command.js'
+export function getProjectRoot(startDir = process.cwd()) {
+	if (projectRoot) {
+		return projectRoot;
+	}
 
-export function folderEmptiness(folder) {
-    const folderFiles = fs.readdirSync(folder)
-    if (1 === folderFiles.length || 0 === folderFiles.length) {
-        return true
-    }
+	projectRoot = startDir;
 
-    return false
-}
+	while (projectRoot !== path.parse(projectRoot).root) {
+		const possibleRootFile = path.join(projectRoot, 'package.json');
+		if (fs.existsSync(possibleRootFile)) {
+			return projectRoot;
+		}
 
-export function getCurrentFolder() {
-    let folder = process.cwd()
-    const args = getArguments()
+		// Move up one directory level
+		projectRoot = path.dirname(projectRoot);
+  }
 
-    if ( undefined !== args.folder ) {
-        folder = resolve( './' + args.folder )
-    }
-
-    return folder
-}
-
-export function getRootFolder() {
-    let counter = 0
-    const check = function( folder ) {
-        const isEmptyFolder = folderEmptiness(folder)
-
-        if (isEmptyFolder) {
-            return folder
-        }
-
-        const existsConfig = fs.existsSync( folder + '/' + CACHE_FILE )
-        const existsPkg = fs.existsSync( folder + '/package.json' )
-        if (existsConfig || existsPkg) {
-            return folder
-        }
-
-        if ( 5 === counter ) {
-            return process.cwd()
-        }
-
-        counter++
-        return check(join(folder, '../'))
-    }
-
-    return check(process.cwd())
+  throw new Error('Project root not found. Make sure there is a package.json file in the root directory.');
 }
 
 export function getTemplateFolder() {
