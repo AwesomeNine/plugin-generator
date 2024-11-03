@@ -8,6 +8,15 @@ import { exec, spawn } from 'node:child_process'
  */
 import { onSameLine } from './formatting.js'
 
+/**
+ * Run a command in the terminal.
+ *
+ * @param {string} command Command to run
+ * @param {string[]} args Arguments to pass
+ * @param {Function} callback Callback function
+ *
+ * @returns {void}
+ */
 export function runCommand( command, args, callback ) {
     const commandSpawn = spawn( command, args, {
         shell: true,
@@ -27,6 +36,14 @@ export function runCommand( command, args, callback ) {
     })
 }
 
+/**
+ * Execute a command in the terminal.
+ *
+ * @param {string} command Command to execute
+ * @param {Function} callback Callback function
+ *
+ * @returns {void}
+ */
 export function execCommand( command, callback ) {
 	if ('string' !== typeof command) {
 		command = command.join(' ')

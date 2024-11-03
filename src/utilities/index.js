@@ -1,4 +1,5 @@
-export * from './folder.js'
+export * from './filesystem.js'
 export * from './formatting.js'
+export * from './semver.js'
 export * from './settings.js'
 export * from './shell.js'

@@ -9,8 +9,8 @@ import { program } from 'commander'
 /**
  * Commands
  */
-import { getSetting, configFileExists } from './utilities/index.js'
-import { init } from './commands/index.js'
+import { configFileExists } from './utilities/index.js'
+import { init, version, views } from './commands/index.js'
 
 /**
  * App
@@ -32,24 +32,80 @@ const app = async () => {
 			if ( 'init' !== actionCommand.name() && ! configFileExists() ) {
 				console.log(chalk.red('Config file not found. Run `wp-awesome9 init` to create a new config file.'));
 			}
-		});
+		})
+		.showHelpAfterError();
 
+	// Command: init
 	program
 		.command('init')
-		.description('Create new config file')
+		.description('Create new config file for the project')
 		.action(init);
 
+	// Command: version
+	program
+		.command('version')
+		.description('Upadte the version of the plugin')
+		.argument('<version>', 'Either a version number (e.g., 1.2.3) or type (major, minor, patch)')
+		.action(version);
 
-program.command('split')
-  .description('Split a string into substrings and display as an array')
-  .argument('<string>', 'string to split')
-  .option('--first', 'display just the first substring')
-  .option('-s, --separator <char>', 'separator character', ',')
-  .action((str, options) => {
-	console.log('setting:', getSetting('company.name'));
-    const limit = options.first ? 1 : undefined;
-    console.log(str.split(options.separator, limit));
-  });
+	// Command: plugin
+	program
+		.command('plugin')
+		.description('Create a new plugin')
+		.action(() => {
+			console.log('Creating a new plugin...');
+		});
+
+	// Command: file
+	program
+		.command('file')
+		.description('Create a new file')
+		.argument('<filename>', 'name of the file')
+		.option('-i', 'Initializer interface template')
+		.option('-g', 'Integration interface template')
+		.option('-r', 'Rest interface template')
+		.option('-s', 'Singleton template')
+		.action(() => {
+			console.log('Creating a new file...');
+		});
+
+	// Command: view
+	program
+		.command('view')
+		.description('Create a new view')
+		.argument('<viewname>', 'name of the view')
+		.action(views);
+
+	// Command: updates
+	program
+		.command('updates')
+		.description('Updates for the plugin')
+		.argument('<version>', 'version number')
+		.action(() => {
+			console.log('Upgrading the plugin...');
+		});
+
+	// Command: js
+	program
+		.command('js')
+		.description('Create a new JavaScript file')
+		.argument('<filename>', 'name of the file')
+		.option('-w', 'Add to webpack mix file for processing')
+		.action(() => {
+			console.log('Creating a new JavaScript file...');
+		});
+
+	// Command: css
+	program
+		.command('css')
+		.description('Create a new CSS file')
+		.argument('<filename>', 'name of the file')
+		.option('-w', 'Add to webpack mix file for processing')
+		.action(() => {
+			console.log('Creating a new CSS file...');
+		});
+
+	// Lets begin
 	program.parse(process.argv)
 }
 

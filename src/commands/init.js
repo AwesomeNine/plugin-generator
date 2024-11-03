@@ -11,18 +11,31 @@ import { getSetting, heading, saveConfig, msgSuccessTitle } from '../utilities/i
 
 export default async () => {
     const questions = [
-        // Company
+        // Product
         {
             type: 'input',
-            name: 'company.name',
-            message: 'Enter company name',
-            default: getSetting( 'company.name','Awesome9' ),
+            name: 'product.name',
+            message: 'The name of your plugin/theme',
+            default: getSetting( 'product.name','Awesome9' ),
         },
         {
             type: 'input',
-            name: 'company.url',
-            message: 'Enter company website url',
-            default: getSetting( 'company.url', 'https://awesome9.co' ),
+            name: 'product.uri',
+            message: 'The home page of the plugin/theme',
+            default: getSetting( 'product.url', 'https://awesome9.co' ),
+            filter: ( val ) => val.toLowerCase()
+        },
+		{
+            type: 'input',
+            name: 'product.description',
+            message: 'A short description of the plugin/theme',
+            default: getSetting( 'product.description' ),
+        },
+		{
+            type: 'input',
+            name: 'product.version',
+            message: 'The current version number of the plugin/theme',
+            default: getSetting( 'product.version', '1.0.0' ),
             filter: ( val ) => val.toLowerCase()
         },
 
@@ -30,72 +43,102 @@ export default async () => {
         {
             type: 'input',
             name: 'author.name',
-            message: 'Enter author name',
+            message: 'The name of the author. Multiple authors may be listed using commas',
             default: getSetting( 'author.name', 'Shakeeb Ahmed' ),
         },
         {
             type: 'input',
             name: 'author.email',
-            message: 'Enter author email',
+            message: 'The email of the author',
             default: getSetting( 'author.email', 'me@shakeebahmed.com' ),
             filter: ( val ) => val.toLowerCase()
         },
         {
             type: 'input',
             name: 'author.url',
-            message: 'Enter author website url',
+            message: 'The author’s website or profile on another website',
             default: getSetting( 'author.url', 'https://shakeebahmed.com' ),
             filter: ( val ) => val.toLowerCase()
         },
 
         // WordPress
+		{
+            type: 'input',
+            name: 'wp.requireWP',
+            message: 'The lowest WordPress version that the plugin/theme will work on',
+            default: getSetting( 'wp.requireWP', '6.0' ),
+            filter: ( val ) => val.toLowerCase()
+        },
+		{
+            type: 'input',
+            name: 'wp.requirePHP',
+            message: 'The minimum required PHP version',
+            default: getSetting( 'wp.requirePHP', '7.4' ),
+            filter: ( val ) => val.toLowerCase()
+        },
         {
             type: 'input',
             name: 'wp.textDomain',
-            message: 'Enter text domain for i18n',
+            message: 'The gettext text domain of the plugin/theme',
             default: getSetting( 'wp.textDomain' ),
             filter: ( val ) => val.toLowerCase()
         },
-        {
+
+		// Paths
+		{
             type: 'input',
-            name: 'wp.version',
-            message: 'Enter plugin version',
-            default: getSetting( 'version', '1.0.0' ),
+            name: 'paths.php',
+            message: 'The source files of the plugin/theme',
+            default: getSetting( 'paths.php', 'includes' ),
             filter: ( val ) => val.toLowerCase()
         },
-        {
+		{
             type: 'input',
-            name: 'wp.name',
-            message: 'Enter plugin name',
-            default: getSetting( 'wp.name' ),
+            name: 'paths.views',
+            message: 'The path to views folder of the plugin/theme',
+            default: getSetting( 'paths.views', 'views' ),
+            filter: ( val ) => val.toLowerCase()
         },
-        {
+		{
             type: 'input',
-            name: 'wp.description',
-            message: 'Enter plugin description',
-            default: getSetting( 'wp.description' ),
+            name: 'paths.updates',
+            message: 'The path to updates folder of the plugin/theme',
+            default: getSetting( 'paths.updates', 'updates' ),
+            filter: ( val ) => val.toLowerCase()
         },
-        {
+		{
             type: 'input',
-            name: 'wp.proxy',
-            message: 'Enter wordpress installation url',
-            default: getSetting( 'wp.proxy' ),
+            name: 'paths.javascript',
+            message: 'The path to javascript folder of the plugin/theme',
+            default: getSetting( 'paths.javascript', 'assets/src' ),
+            filter: ( val ) => val.toLowerCase()
         },
-
-        // PHP
+		{
+            type: 'input',
+            name: 'paths.scss',
+            message: 'The path to scss folder of the plugin/theme',
+            default: getSetting( 'paths.scss', 'assets/scss' ),
+            filter: ( val ) => val.toLowerCase()
+        },
+        // Misc
         {
             type: 'input',
-            name: 'php.package',
+            name: 'misc.package',
             message: 'Enter php package namespace',
-            default: getSetting( 'php.package' ),
+            default: getSetting( 'misc.package' ),
             filter: ( val ) => val.replace( / /g, '' )
         },
-        // Packages
+
+        {
+            type: 'input',
+            name: 'misc.proxy',
+            message: 'Enter wordpress installation url',
+            default: getSetting( 'misc.proxy' ),
+        },
         {
             type: 'checkbox',
             name: 'awesomePackages',
             message: 'Select awesome packages to install',
-            default: getSetting(  'company.name','Awesome9' ),
             choices: [
                 { value:'awesome9/database', name: 'Database: an expressive WordPress SQL query builder' },
                 { value:'awesome9/json', name: 'JSON: ease of managing data localization within WordPress' },
@@ -111,16 +154,16 @@ export default async () => {
 	heading('How you want your plugin?')
     inquirer.prompt( questions )
         .then( ( answers ) => {
-            const date = new Date()
-            answers.year = date.getFullYear()
+            // const date = new Date()
+            // answers.year = date.getFullYear()
 
-            answers.package = {
-                vendor: kebabCase( answers.company.name ),
-                name: kebabCase( answers.wp.name )
-            }
-            answers.functionName = answers.php.package
-                .toLowerCase()
-                .replace( /\\/g, '_' )
+            // answers.package = {
+            //     vendor: kebabCase( answers.product.name ),
+            //     name: kebabCase( answers.wp.name )
+            // }
+            // answers.functionName = answers.php.package
+            //     .toLowerCase()
+            //     .replace( /\\/g, '_' )
 
 			saveConfig( answers )
 			msgSuccessTitle('Config file created successfully!')
