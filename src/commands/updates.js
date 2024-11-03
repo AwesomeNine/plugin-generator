@@ -14,31 +14,24 @@ import fs from 'fs-extra';
  */
 import { getSetting, write, heading, getProjectRoot, msgErrorTitle, msgSuccessOnSameLine, getTemplateFile, compileTemplate } from "../utilities/index.js";
 
-function filenameToHeading(filename) {
-	filename = filename.replace('.php', '');
-	filename = filename.replace(/-/g, ' ');
-
-	return capitalize(filename);
-}
-
-export default (name, vHeading) => {
-	heading('Creating view file...')
+export default (version) => {
+	heading('Creating update file...')
 
 	try {
-		const paths = name.split('\\')
-		const filename = paths.pop() + '.php';
-		const folder = path.join(getProjectRoot(), getSetting('paths.views'), paths.join('/'));
+		const filename = `upgrade-${version}.php`;
+		const folder = path.join(getProjectRoot(), getSetting('paths.updates'));
 
 		// Data
 		const data = getSetting();
-		data.heading = vHeading || filenameToHeading(filename) + ' template file';
+		data.heading = `Update routine for version ${version}`;
+		data.version = version.replaceAll('.', '_');
 
 		write('Creating directories!!');
 		fs.ensureDirSync(folder);
 		msgSuccessOnSameLine('Directories created successfully');
 
 		write('Creating file!!');
-		const content = compileTemplate(getTemplateFile('files/view.php'), data);
+		const content = compileTemplate(getTemplateFile('files/update.php'), data);
 		fs.writeFileSync(path.join(folder, filename), content);
 		msgSuccessOnSameLine('File created successfully');
 	}

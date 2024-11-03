@@ -10,7 +10,7 @@ import { program } from 'commander'
  * Commands
  */
 import { configFileExists } from './utilities/index.js'
-import { init, version, views } from './commands/index.js'
+import { init, version, views, updates } from './commands/index.js'
 
 /**
  * App
@@ -48,7 +48,7 @@ const app = async () => {
 		.argument('<version>', 'Either a version number (e.g., 1.2.3) or type (major, minor, patch)')
 		.action(version);
 
-	// Command: plugin
+	// Command: plugin - todo
 	program
 		.command('plugin')
 		.description('Create a new plugin')
@@ -56,7 +56,7 @@ const app = async () => {
 			console.log('Creating a new plugin...');
 		});
 
-	// Command: file
+	// Command: file - todo
 	program
 		.command('file')
 		.description('Create a new file')
@@ -82,11 +82,9 @@ const app = async () => {
 		.command('updates')
 		.description('Updates for the plugin')
 		.argument('<version>', 'version number')
-		.action(() => {
-			console.log('Upgrading the plugin...');
-		});
+		.action(updates);
 
-	// Command: js
+	// Command: js - todo
 	program
 		.command('js')
 		.description('Create a new JavaScript file')
@@ -96,7 +94,7 @@ const app = async () => {
 			console.log('Creating a new JavaScript file...');
 		});
 
-	// Command: css
+	// Command: css - todo
 	program
 		.command('css')
 		.description('Create a new CSS file')
