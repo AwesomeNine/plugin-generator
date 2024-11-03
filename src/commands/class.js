@@ -7,19 +7,11 @@ import capitalize from 'lodash/capitalize.js';
  * Node Dependencies
  */
 import path from 'path';
-import fs from 'fs-extra';
 
 /**
  * Internal Dependencies
  */
-import { getSetting, writeFile, heading, getProjectRoot, msgErrorTitle, getTemplateFile, compileTemplate } from "../utilities/index.js";
-
-function filenameToHeading(filename) {
-	filename = filename.replace('.php', '');
-	filename = filename.replace(/-/g, ' ');
-
-	return capitalize(filename);
-}
+import { getSetting, writeFile, filenameToHeading, heading, getProjectRoot, msgErrorTitle, getTemplateFile, compileTemplate } from "../utilities/index.js";
 
 function templateName(options)  {
 	const length = Object.keys(options).length

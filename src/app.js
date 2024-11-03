@@ -9,8 +9,8 @@ import { program } from 'commander'
 /**
  * Commands
  */
+import * as commands from './commands/index.js'
 import { configFileExists } from './utilities/index.js'
-import { classFile, init, version, views, updates } from './commands/index.js'
 
 /**
  * App
@@ -39,22 +39,20 @@ const app = async () => {
 	program
 		.command('init')
 		.description('Create new config file for the project')
-		.action(init);
+		.action(commands.init);
 
 	// Command: version
 	program
 		.command('version')
 		.description('Upadte the version of the plugin')
 		.argument('<version>', 'Either a version number (e.g., 1.2.3) or type (major, minor, patch)')
-		.action(version);
+		.action(commands.version);
 
 	// Command: plugin - todo
 	program
 		.command('plugin')
 		.description('Create a new plugin')
-		.action(() => {
-			console.log('Creating a new plugin...');
-		});
+		.action(commands.plugin);
 
 	// Command: class
 	program
@@ -66,7 +64,7 @@ const app = async () => {
 		.option('-g', 'Integration interface template')
 		.option('-r', 'Rest interface template')
 		.option('-s', 'Singleton template')
-		.action(classFile);
+		.action(commands.classFile);
 
 	// Command: view
 	program
@@ -74,34 +72,32 @@ const app = async () => {
 		.description('Create a new view')
 		.argument('<viewname>', 'name of the view')
 		.argument('[heading]', 'Heading of the file')
-		.action(views);
+		.action(commands.views);
 
 	// Command: updates
 	program
 		.command('updates')
 		.description('Updates for the plugin')
 		.argument('<version>', 'version number')
-		.action(updates);
+		.action(commands.updates);
 
-	// Command: js - todo
+	// Command: js
 	program
 		.command('js')
 		.description('Create a new JavaScript file')
 		.argument('<filename>', 'name of the file')
+		.argument('[heading]', 'Heading of the file')
 		.option('-w', 'Add to webpack mix file for processing')
-		.action(() => {
-			console.log('Creating a new JavaScript file...');
-		});
+		.action(commands.javascript);
 
-	// Command: css - todo
+	// Command: css
 	program
 		.command('css')
 		.description('Create a new CSS file')
 		.argument('<filename>', 'name of the file')
+		.argument('[heading]', 'Heading of the file')
 		.option('-w', 'Add to webpack mix file for processing')
-		.action(() => {
-			console.log('Creating a new CSS file...');
-		});
+		.action(commands.css);
 
 	// Lets begin
 	program.parse(process.argv)
