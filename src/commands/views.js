@@ -1,4 +1,9 @@
 /**
+ * External Dependencies
+ */
+import capitalize from 'lodash/capitalize.js';
+
+/**
  * Node Dependencies
  */
 import path from 'path';
@@ -9,7 +14,14 @@ import fs from 'fs-extra';
  */
 import { getSetting, write, heading, getProjectRoot, msgErrorTitle, msgSuccessOnSameLine, getTemplateFile, compileTemplate } from "../utilities/index.js";
 
-export default (name) => {
+function filenameToHeading(filename) {
+	filename = filename.replace('.php', '');
+	filename = filename.replace(/-/g, ' ');
+
+	return capitalize(filename);
+}
+
+export default (name, vHeading) => {
 	heading('Creating view file...')
 
 	try {
@@ -23,7 +35,7 @@ export default (name) => {
 		msgSuccessOnSameLine('Directories created successfully');
 
 		write('Creating file!!');
-		data.heading = 'This is a view file';
+		data.heading = vHeading || filenameToHeading(filename) + ' template file';
 		const content = compileTemplate(getTemplateFile('files/view.php'), data);
 		fs.writeFileSync(path.join(folder, filename), content);
 		msgSuccessOnSameLine('File created successfully');

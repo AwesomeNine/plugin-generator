@@ -74,6 +74,7 @@ const app = async () => {
 		.command('view')
 		.description('Create a new view')
 		.argument('<viewname>', 'name of the view')
+		.argument('[heading]', 'Heading of the file')
 		.action(views);
 
 	// Command: updates

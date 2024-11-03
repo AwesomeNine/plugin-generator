@@ -154,16 +154,16 @@ export default async () => {
 	heading('How you want your plugin?')
     inquirer.prompt( questions )
         .then( ( answers ) => {
-            // const date = new Date()
-            // answers.year = date.getFullYear()
+            const date = new Date()
+            answers.year = date.getFullYear()
 
-            // answers.package = {
-            //     vendor: kebabCase( answers.product.name ),
-            //     name: kebabCase( answers.wp.name )
-            // }
-            // answers.functionName = answers.php.package
-            //     .toLowerCase()
-            //     .replace( /\\/g, '_' )
+            answers.package = {
+                vendor: kebabCase( answers.author.name ),
+                name: kebabCase( answers.product.name )
+            }
+            answers.functionName = answers.misc.package
+                .toLowerCase()
+                .replace( /\\/g, '_' )
 
 			saveConfig( answers )
 			msgSuccessTitle('Config file created successfully!')

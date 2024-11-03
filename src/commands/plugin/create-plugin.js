@@ -28,33 +28,6 @@ function prepareFile( src, dest, next ) {
  * Flow functions
  */
 function setPluginData(next) {
-	// pluginData.settings = {
-	// 	company: {
-	// 		name: 'WordPress Linear',
-	// 		url: 'https://wplinear.com'
-	// 	},
-	// 	author: {
-	// 		name: 'Shakeeb Ahmed',
-	// 		email: 'me@shakeebahmed.com',
-	// 		url: 'https://shakeebahmed.com'
-	// 	},
-	// 	wp: {
-	// 		textDomain: 'wp-linear',
-	// 		version: '1.0.0',
-	// 		name: 'WordPress Linear',
-	// 		description: 'WordPress agile project management',
-	// 		proxy: 'http://wp-linear.vm'
-	// 	},
-	// 	php: { package: 'Linear' },
-	// 	awesomePackages: [
-	// 		'awesome9/database',
-	// 		'awesome9/json'
-	// 	],
-	// 	year: 2023,
-	// 	package: { vendor: 'word-press-linear', name: 'word-press-linear' },
-	// 	functionName: 'linear'
-	// }
-
 	pluginData.folder = getCurrentFolder()
 	pluginData.template = getTemplateFolder()
 

@@ -3,7 +3,7 @@
  * {{heading}}.
  *
  * @since   {{product.version}}
- * @package {{product.name}}
+ * @package {{misc.package}}
  * @author  {{author.name}} <{{author.email}}>
  */
 
