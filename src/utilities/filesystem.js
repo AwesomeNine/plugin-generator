@@ -1,20 +1,20 @@
 /**
  * External dependencies
  */
-import chalk from 'chalk'
-import logSymbols from 'log-symbols'
+import chalk from 'chalk';
+import logSymbols from 'log-symbols';
 import template from 'lodash/template.js';
 
 /**
  * Node dependencies
  */
-import fs from 'fs'
-import path from 'path'
+import path from 'path';
+import fs from 'fs-extra';
 
 /**
  * Internal Dependencies
  */
-import { onSameLine } from './formatting.js'
+import { write, msgSuccessOnSameLine, onSameLine } from './formatting.js'
 
 let projectRoot = null
 
@@ -135,4 +135,14 @@ export function updateFileContent(fileName, messages, next, callback) {
             next()
         })
     })
+}
+
+export function writeFile(folder, filename, content) {
+	write('Creating directories!!');
+	fs.ensureDirSync(folder);
+	msgSuccessOnSameLine('Directories created successfully');
+
+	write('Creating file!!');
+	fs.writeFileSync(path.join(folder, filename), content);
+	msgSuccessOnSameLine('File created successfully');
 }

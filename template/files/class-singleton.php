@@ -2,21 +2,19 @@
 /**
  * {{heading}}.
  *
- * @package {{php.package}}
+ * @since   {{product.version}}
+ * @package {{misc.package}}
  * @author  {{author.name}} <{{author.email}}>
- * @since   {{wp.version}}
  */
 
-namespace {{php.package}}{{namespace}};
-
-use {{php.package}}\Interfaces\WordPress_Integration;
+namespace {{misc.package}}{{namespace}};
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * {{heading}}.
+ * {{className}} class.
  */
-class {{className}} implements WordPress_Integration {
+class {{className}} {
 
 	/**
 	 * Main instance
@@ -33,11 +31,5 @@ class {{className}} implements WordPress_Integration {
 		}
 
 		return $instance;
-	}
-
-	/**
-	 * Hook into WordPress.
-	 */
-	public function hooks() {
 	}
 }

@@ -10,7 +10,7 @@ import { program } from 'commander'
  * Commands
  */
 import { configFileExists } from './utilities/index.js'
-import { init, version, views, updates } from './commands/index.js'
+import { classFile, init, version, views, updates } from './commands/index.js'
 
 /**
  * App
@@ -56,18 +56,17 @@ const app = async () => {
 			console.log('Creating a new plugin...');
 		});
 
-	// Command: file - todo
+	// Command: class
 	program
-		.command('file')
-		.description('Create a new file')
-		.argument('<filename>', 'name of the file')
+		.command('class')
+		.description('Create a new class file')
+		.argument('<classname>', 'Classname')
+		.argument('[heading]', 'Heading of the file')
 		.option('-i', 'Initializer interface template')
 		.option('-g', 'Integration interface template')
 		.option('-r', 'Rest interface template')
 		.option('-s', 'Singleton template')
-		.action(() => {
-			console.log('Creating a new file...');
-		});
+		.action(classFile);
 
 	// Command: view
 	program

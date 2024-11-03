@@ -1,46 +1,28 @@
-/**
- * External Dependencies
- */
-import capitalize from 'lodash/capitalize.js';
 
 /**
  * Node Dependencies
  */
 import path from 'path';
-import fs from 'fs-extra';
 
 /**
  * Internal Dependencies
  */
-import { getSetting, write, heading, getProjectRoot, msgErrorTitle, msgSuccessOnSameLine, getTemplateFile, compileTemplate } from "../utilities/index.js";
+import { getSetting, writeFile, heading, filenameToHeading, getProjectRoot, msgErrorTitle, getTemplateFile, compileTemplate } from "../utilities/index.js";
 
-function filenameToHeading(filename) {
-	filename = filename.replace('.php', '');
-	filename = filename.replace(/-/g, ' ');
-
-	return capitalize(filename);
-}
-
-export default (name, vHeading) => {
+export default (name, description) => {
 	heading('Creating view file...')
 
 	try {
-		const paths = name.split('\\')
+		const paths = name.toLowerCase().split('\\')
 		const filename = paths.pop() + '.php';
 		const folder = path.join(getProjectRoot(), getSetting('paths.views'), paths.join('/'));
 
 		// Data
 		const data = getSetting();
-		data.heading = vHeading || filenameToHeading(filename) + ' template file';
+		data.heading = description || filenameToHeading(filename) + ' template file';
 
-		write('Creating directories!!');
-		fs.ensureDirSync(folder);
-		msgSuccessOnSameLine('Directories created successfully');
-
-		write('Creating file!!');
 		const content = compileTemplate(getTemplateFile('files/view.php'), data);
-		fs.writeFileSync(path.join(folder, filename), content);
-		msgSuccessOnSameLine('File created successfully');
+		writeFile(folder, filename, content);
 	}
 	catch (err) {
 		msgErrorTitle('We failed!!!');
