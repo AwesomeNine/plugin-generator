@@ -1,8 +1,8 @@
 {
 	"name": "{{package.name}}",
-	"title": "{{wp.name}}",
+	"title": "{{product.name}}",
 	"description": "{{wp.description}}",
-	"homepage": "{{company.url}}",
+	"homepage": "{{product.uri}}",
 	"private": true,
 	"repository": {
 		"type": "git",
@@ -22,9 +22,12 @@
 		"build": "mix --production",
 		"lint": "lint-staged",
 		"lint:css": "stylelint \"**/*.css\" --cache",
+		"lint:scss": "stylelint \"**/*.scss\" --cache",
 		"lint:js": "eslint . --cache",
 		"lint:p": "prettier -c .",
-		"lint:php": "vendor/bin/phpcs"
+		"lint:pw": "prettier -w .",
+		"lint:php": "vendor/bin/phpcs",
+		"ls-phpcs": "./tools/phpcs.sh"
 	},
 	"devDependencies": {
 	},

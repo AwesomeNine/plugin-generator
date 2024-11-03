@@ -165,6 +165,12 @@ export default async () => {
                 .toLowerCase()
                 .replace( /\\/g, '_' )
 
+			answers.wp.textDomain = answers.wp.textDomain || answers.package.name
+			answers.wp.shortname = answers.wp.textDomain.toUpperCase()
+				.replaceAll( '-', '' )
+				.replaceAll( '_', '' )
+			answers.wp.upgradeOptionName = answers.wp.textDomain.replaceAll( '-', '_' ) + '_version'
+
 			saveConfig( answers )
 			msgSuccessTitle('Config file created successfully!')
         } )

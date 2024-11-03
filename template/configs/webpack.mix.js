@@ -19,14 +19,14 @@ mix.webpackConfig({
 
 // Aliasing Paths.
 mix.alias({
-	'@root': join(__dirname, 'assets/src'),
+	'@root': join(__dirname, '{{paths.javascript}}'),
 });
 
 /**
  * Browsersync
  */
 mix.browserSync({
-	proxy: '{{wp.proxy}}',
+	proxy: '{{misc.proxy}}',
 	ghostMode: false,
 	notify: false,
 	ui: false,
@@ -50,9 +50,9 @@ mix.wpPot({
 /**
  * CSS
  */
-mix.sass('assets/scss/app.scss', 'assets/css/app.css').tailwind()
+// mix.sass('assets/scss/app.scss', 'assets/css/app.css').tailwind()
 
 /**
  * JavaScript
  */
-mix.js('assets/src/app.js', 'assets/js/app.js')
+// mix.js('assets/src/app.js', 'assets/js/app.js')

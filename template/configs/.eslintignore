@@ -10,4 +10,4 @@
 *.build.js
 /assets/**/js/**
 /assets/vendor/**
-tailwind.config.js
+tailwind.*.js

@@ -1,39 +1,58 @@
-<?php // @codingStandardsIgnoreFile
+<?php
 /**
- * Plugin Name:       {{wp.name}}
- * Plugin URI:        {{company.url}}/{{package.name}}
- * Description:       {{wp.description}}
- * Version:           {{wp.version}}
+ * {{product.name}}
+ *
+ * @package   {{misc.package}}
+ * @author    {{author.name}} <{{author.email}}>
+ * @link      {{product.uri}}
+ * @license   GPL-2.0+
+ * @copyright Copyright (C) {{year}}, {{product.name}}.
+ *
+ * @wordpress-plugin
+ * Plugin Name:       {{product.name}}
+ * Plugin URI:        {{product.uri}}/{{package.name}}
+ * Description:       {{product.description}}
+ * Version:           {{product.version}}
  * Author:            {{author.name}}
  * Author URI:        {{author.url}}
  * Text Domain:       {{wp.textDomain}}
  * Domain Path:       /languages
- * Requires at least: 5.5
- * Requires PHP: 7.0
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  *
- * @package    {{php.package}}
- * @copyright  Copyright (C) {{year}}, {{company.name}}.
- * @author     {{author.name}} <{{author.email}}>
- * @since      {{wp.version}}
+ * @requires
+ * Requires at least: {{wp.requireWP}}
+ * Requires PHP:      {{wp.requirePHP}}
  */
 
-defined( 'ABSPATH' ) || exit;
+// Early bail!!
+if ( ! function_exists( 'add_filter' ) ) {
+	header( 'Status: 403 Forbidden' );
+	header( 'HTTP/1.1 403 Forbidden' );
+	exit();
+}
 
-require_once 'vendor/autoload.php';
+if ( defined( '{{wp.shortname}}_FILE' ) ) {
+	return;
+}
 
-use {{php.package}}\Plugin;
+define( '{{wp.shortname}}_FILE', __FILE__ );
+define( '{{wp.shortname}}_VERSION', '{{product.version}}' );
 
-Plugin::get()
-	->set_paths( __FILE__ )
-	->hooks();
+// Load the autoloader.
+require_once __DIR__ . '/includes/class-autoloader.php';
+\{{misc.package}}\Autoloader::get()->initialize();
 
 /**
- * Helper function
+ * Returns the main instance of {{product.name}}.
  *
- * @return Plugin
+ * @since {{product.version}}
+ *
+ * @return \{{misc.package}}\Plugin
  */
 function {{functionName}}() {
-	return Plugin::get();
+	return \{{misc.package}}\Plugin::get();
 }
+
+// Start it.
+{{functionName}}();

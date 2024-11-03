@@ -35,7 +35,7 @@ export function getProjectRoot(startDir = process.cwd()) {
 	projectRoot = startDir;
 
 	while (projectRoot !== path.parse(projectRoot).root) {
-		const possibleRootFile = path.join(projectRoot, '.wpawesome9');
+		const possibleRootFile = path.join(projectRoot, 'wp.awesome9');
 		if (fs.existsSync(possibleRootFile)) {
 			return projectRoot;
 		}

@@ -9,7 +9,7 @@
 
 namespace {{misc.package}}{{namespace}};
 
-use AdvancedAds\Framework\Interfaces\Routes_Interface;
+use Awesome9\Framework\Interfaces\Routes_Interface;
 
 defined( 'ABSPATH' ) || exit;
 

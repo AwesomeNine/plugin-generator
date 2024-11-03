@@ -1,22 +1,22 @@
 <?php
 /**
- * Admin template file.
+ * Frontend template file.
  *
  * @since   {{product.version}}
  * @package {{misc.package}}
  * @author  {{author.name}} <{{author.email}}>
  */
 
-namespace {{misc.package}}\Admin;
+namespace {{misc.package}}\Frontend;
 
 use Awesome9\Framework\Interfaces\Integration_Interface;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Admin class.
+ * Frontend class.
  */
-class Admin implements Integration_Interface {
+class Frontend implements Integration_Interface {
 
 	/**
 	 * Hook into WordPress.

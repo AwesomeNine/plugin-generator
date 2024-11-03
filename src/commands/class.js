@@ -27,8 +27,6 @@ function templateName(options)  {
 		's': 'class-singleton',
 	}
 	const has = Object.keys(options)[0]
-	console.log(options, has);
-
 
 	return hash[has] ?? 'class-empty';
 }
@@ -50,7 +48,7 @@ export default (classname, description, options) => {
 		data.namespace = '\\' + namespace.join('\\');
 
 		const content = compileTemplate(getTemplateFile(`files/${template}.php`), data);
-		writeFile(folder, filename, content);
+		writeFile(folder, `class-${filename}`, content);
 	}
 	catch (err) {
 		msgErrorTitle('We failed!!!');

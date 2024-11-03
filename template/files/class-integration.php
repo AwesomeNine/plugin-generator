@@ -9,7 +9,7 @@
 
 namespace {{misc.package}}{{namespace}};
 
-use AdvancedAds\Framework\Interfaces\Integration_Interface;
+use Awesome9\Framework\Interfaces\Integration_Interface;
 
 defined( 'ABSPATH' ) || exit;
 

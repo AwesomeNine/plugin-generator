@@ -36,8 +36,12 @@ export function onNewLine(text) {
  * @returns {void}
  */
 export function onSameLine(text) {
-    process.stdout.clearLine()
-    process.stdout.cursorTo(0)
+	if (process.stdout.clearLine) {
+		process.stdout.clearLine(); // Clear the current line
+		process.stdout.cursorTo(0);  // Move the cursor to the start of the line
+		// process.stdout.write(message);
+	}
+
     console.log(text)
 }
 

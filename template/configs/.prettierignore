@@ -29,6 +29,7 @@ node_modules/
 
 # Composer
 vendor/
+packages/
 bin/composer/**/vendor/
 composer.json
 composer.lock

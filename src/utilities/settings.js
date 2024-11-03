@@ -16,8 +16,8 @@ import path from 'path'
 import { getProjectRoot } from './filesystem.js'
 
 let settings = null
-const savePath = path.join(process.cwd(), '.wpawesome9')
-const configPath = path.join(getProjectRoot(), '.wpawesome9')
+const savePath = path.join(process.cwd(), 'wp.awesome9')
+const configPath = path.join(getProjectRoot(), 'wp.awesome9')
 
 /**
  * Checks if the configuration file exists at the specified path.

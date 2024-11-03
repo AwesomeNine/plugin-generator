@@ -1,8 +1,8 @@
 {
 	"name": "{{package.vendor}}/{{package.name}}",
     "description": "{{wp.description}}",
-	"homepage": "{{company.url}}",
-	"version": "{{wp.version}}",
+	"homepage": "{{product.uri}}",
+	"version": "{{product.version}}",
 	"type": "wordpress-plugin",
 	"license": "GPL-3.0-or-later",
 	"prefer-stable": true,
@@ -15,12 +15,11 @@
 		}
 	],
 	"require": {
-		"php": ">=7.2"
+		"php": ">=7.4"
 	},
 	"require-dev": {
-		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
 		"phpcompatibility/phpcompatibility-wp": "*",
-		"wp-coding-standards/wpcs": "^2.3"
+		"wp-coding-standards/wpcs": "^3.0.0"
 	},
 	"config": {
 		"optimize-autoloader": true,
@@ -39,7 +38,9 @@
 	},
 	"scripts": {
 		"post-install-cmd": [
-			"composer global require wp-cli/wp-cli"
-		]
+			"composer global require wp-cli/wp-cli",
+			"composer global require wp-cli/i18n-command"
+		],
+		"build": "sh ./tools/build.sh"
 	}
 }
