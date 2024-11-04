@@ -16,8 +16,6 @@ import path from 'path'
 import { getProjectRoot } from './filesystem.js'
 
 let settings = null
-const savePath = path.join(process.cwd(), 'wp.awesome9')
-const configPath = path.join(getProjectRoot(), 'wp.awesome9')
 
 /**
  * Checks if the configuration file exists at the specified path.
@@ -25,7 +23,12 @@ const configPath = path.join(getProjectRoot(), 'wp.awesome9')
  * @returns {boolean} True if the configuration file exists, false otherwise.
  */
 export function configFileExists() {
-	return fs.existsSync(configPath);
+	try {
+		const configPath = path.join(getProjectRoot(), 'wp.awesome9')
+		return fs.existsSync(configPath);
+	} catch (err) {
+		return false;
+	}
 }
 
 /**
@@ -35,6 +38,7 @@ export function configFileExists() {
  */
 export function readConfigFile() {
 	try {
+		const configPath = path.join(getProjectRoot(), 'wp.awesome9')
 		const data = fs.readFileSync(configPath, 'utf-8');
 		return JSON.parse(data);
 	} catch (err) {
@@ -50,6 +54,7 @@ export function readConfigFile() {
 export function saveConfig(data) {
 	console.log('Saving config file...');
 	try {
+		const savePath = path.join(process.cwd(), 'wp.awesome9')
 		const jsonData = JSON.stringify(data, null, 2);
 		fs.writeFileSync(savePath, jsonData);
 	} catch (err) {

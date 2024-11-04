@@ -44,7 +44,7 @@ export function getProjectRoot(startDir = process.cwd()) {
 		projectRoot = path.dirname(projectRoot);
   }
 
-  throw new Error('Project root not found. Make sure there is a package.json file in the root directory.');
+  throw new Error('Project root not found. Make sure there is a wp.awesome9 file in the root directory.');
 }
 
 /**

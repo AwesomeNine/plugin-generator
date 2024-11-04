@@ -10,7 +10,7 @@ import { program } from 'commander'
  * Commands
  */
 import * as commands from './commands/index.js'
-import { configFileExists } from './utilities/index.js'
+import { configFileExists, onNewLine } from './utilities/index.js'
 
 /**
  * App
@@ -30,7 +30,8 @@ const app = async () => {
 		.version('2.0.0')
 		.hook('preAction', (thisCommand, actionCommand) => {
 			if ( 'init' !== actionCommand.name() && ! configFileExists() ) {
-				console.log(chalk.red('Config file not found. Run `wp-awesome9 init` to create a new config file.'));
+				onNewLine(chalk.bgRed.white('Config file not found. Run `wp-awesome9 init` to create a new config file.'));
+				process.exit(1);
 			}
 		})
 		.showHelpAfterError();
@@ -48,7 +49,7 @@ const app = async () => {
 		.argument('<version>', 'Either a version number (e.g., 1.2.3) or type (major, minor, patch)')
 		.action(commands.version);
 
-	// Command: plugin - todo
+	// Command: plugin
 	program
 		.command('plugin')
 		.description('Create a new plugin')
