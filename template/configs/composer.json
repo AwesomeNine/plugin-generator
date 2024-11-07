@@ -15,9 +15,7 @@
 		}
 	],
 	"require": {
-		"php": ">=7.4",
-		"awesome9/framework": "dev-main",
-		"awesome9/updates": "^2.0"
+		"php": ">=7.4"
 	},
 	"require-dev": {
 		"phpcompatibility/phpcompatibility-wp": "*",

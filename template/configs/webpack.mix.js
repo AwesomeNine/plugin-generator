@@ -50,7 +50,7 @@ mix.wpPot({
 /**
  * CSS
  */
-// mix.sass('assets/scss/app.scss', 'assets/css/app.css').tailwind()
+mix.sass('assets/scss/ui-toolkit.scss', 'assets/css/ui-toolkit.css').tailwind()
 
 /**
  * JavaScript

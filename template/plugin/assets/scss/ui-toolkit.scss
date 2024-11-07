@@ -1,0 +1,11 @@
+@tailwind components;
+@tailwind utilities;
+
+$namespace: "awesome9";
+
+// Colors
+$color-primary: "#1B183A";
+$border-color: #b5bfc9;
+$page-background: #f0f2f4;
+
+@import "../../vendor/awesome9/framework/resources/scss/ui-toolkit";

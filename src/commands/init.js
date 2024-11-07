@@ -129,24 +129,30 @@ export default async () => {
             filter: ( val ) => val.replace( / /g, '' )
         },
 
+		{
+            type: 'input',
+            name: 'misc.prefix',
+            message: 'Enter prefix to be used for functions and constants',
+            default: getSetting( 'misc.prefix' ),
+        },
+
         {
             type: 'input',
             name: 'misc.proxy',
             message: 'Enter wordpress installation url',
             default: getSetting( 'misc.proxy' ),
         },
+
         {
             type: 'checkbox',
             name: 'awesomePackages',
             message: 'Select awesome packages to install',
             choices: [
                 { value:'awesome9/database', name: 'Database: an expressive WordPress SQL query builder' },
-                { value:'awesome9/json', name: 'JSON: ease of managing data localization within WordPress' },
                 { value:'awesome9/notifications', name: 'Notifications: ease of managing temporary and permanent notification within WordPress' },
                 { value:'awesome9/options', name: 'Options: ease of managing options within WordPress.' },
                 { value:'awesome9/requirements', name: 'Requirements: test environment requirements to run your plugin' },
                 { value:'awesome9/templates', name: 'Templates: wrapper for WordPress Filesystem and Templates' },
-                { value:'awesome9/updates', name: 'Updates: to run update routines within a plugin' },
             ]
         },
     ]
@@ -166,10 +172,15 @@ export default async () => {
                 .replace( /\\/g, '_' )
 
 			answers.wp.textDomain = answers.wp.textDomain || answers.package.name
-			answers.wp.shortname = answers.wp.textDomain.toUpperCase()
+			answers.wp.shortname = answers.wp.prefix.toUpperCase()
 				.replaceAll( '-', '' )
 				.replaceAll( '_', '' )
 			answers.wp.upgradeOptionName = answers.wp.textDomain.replaceAll( '-', '_' ) + '_version'
+
+			answers.awesomePackages = answers.awesomePackages || []
+			answers.awesomePackages.push('awesome9/framework')
+			answers.awesomePackages.push('awesome9/json')
+			answers.awesomePackages.push('awesome9/updates')
 
 			saveConfig( answers )
 			msgSuccessTitle('Config file created successfully!')

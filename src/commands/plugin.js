@@ -13,7 +13,7 @@ import path from 'path';
 /**
  * Internal Dependencies
  */
-import { getSetting, execCommand, runCommand, heading, msgErrorTitle, getTemplateFile, compileTemplate, write, msgSuccessOnSameLine, getTemplateFolder } from "../utilities/index.js";
+import { getSetting, execCommand, heading, msgErrorTitle, getTemplateFile, compileTemplate, write, msgSuccessOnSameLine, getTemplateFolder } from "../utilities/index.js";
 
 export const pluginData = {}
 
@@ -167,6 +167,23 @@ function installComposer(next) {
 	})
 }
 
+function installComposerPackages(next) {
+	if ( 0 === pluginData.settings.awesomePackages.length ) {
+		next()
+		return
+	}
+
+	eachSeries( pluginData.settings.awesomePackages, ( name, nextPackage ) => {
+		write( chalk.red( 'Installing ' + name ) )
+		execCommand(`composer require ${name} -q`, function() {
+			msgSuccessOnSameLine(`Package: ${name} installed successfully`)
+			nextPackage()
+		})
+	}, () => {
+		next()
+	} )
+}
+
 function installNodePackages(next) {
 	const packages =[
 		'@wordpress/eslint-plugin',
@@ -226,6 +243,7 @@ export default () => {
 			preparePluginFiles,
 			prepareGitRepository,
 			installComposer,
+			installComposerPackages,
 			installNodePackages,
 			prepareNodePackages
 		],

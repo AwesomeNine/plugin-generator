@@ -10,6 +10,7 @@
 namespace {{misc.package}};
 
 use Awesome9\Framework;
+use Awesome9\Framework\Toolkit_Preview;
 use {{misc.package}}\Installation\Install;
 
 defined( 'ABSPATH' ) || exit;
@@ -158,6 +159,7 @@ class Plugin extends Framework\Loader {
 
 		$this->register_initializer( Upgrades::class );
 		$this->register_integration( Admin\Admin::class );
+		$this->register_integration( Toolkit_Preview::class );
 	}
 
 	/**

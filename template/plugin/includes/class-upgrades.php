@@ -9,7 +9,7 @@
 
 namespace {{misc.package}};
 
-use Awesome9\Framework\Updates;
+use Awesome9\Updates\Updates;
 use Awesome9\Framework\Interfaces\Initializer_Interface;
 
 defined( 'ABSPATH' ) || exit;
