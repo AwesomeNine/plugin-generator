@@ -125,6 +125,7 @@ function prepareConfigFiles(next) {
 function preparePluginFiles(next) {
 	const template = pluginData.template + '/plugin'
 	const files =[
+		'/assets/scss/ui-toolkit.scss',
 		'/includes/admin/class-admin.php',
 		'/includes/frontend/class-frontend.php',
 		'/includes/installation/class-install.php',
@@ -195,6 +196,7 @@ function installNodePackages(next) {
 		'eslint-plugin-prettier',
 		'husky',
 		'laravel-mix',
+		'laravel-mix-tailwind',
 		'lint-staged',
 		'mix-tailwindcss',
 		'postcss',
