@@ -172,7 +172,7 @@ export default async () => {
                 .replace( /\\/g, '_' )
 
 			answers.wp.textDomain = answers.wp.textDomain || answers.package.name
-			answers.wp.shortname = answers.wp.prefix.toUpperCase()
+			answers.wp.shortname = answers.misc.prefix.toUpperCase()
 				.replaceAll( '-', '' )
 				.replaceAll( '_', '' )
 			answers.wp.upgradeOptionName = answers.wp.textDomain.replaceAll( '-', '_' ) + '_version'
