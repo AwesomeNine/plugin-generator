@@ -19,13 +19,12 @@ defined( 'ABSPATH' ) || exit;
 class Install extends Base {
 
 	/**
-	 * Runs this initializer.
+	 * Plugin base file
 	 *
-	 * @return void
+	 * @var string
 	 */
-	public function initialize(): void {
-		$this->base_file = {{wp.shortname}}_FILE;
-		parent::initialize();
+	protected function get_base_file(): string {
+		return {{wp.shortname}}_FILE;
 	}
 
 	/**

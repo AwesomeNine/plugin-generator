@@ -70,15 +70,15 @@
         <type>error</type>
     </rule>
 
-	<rule ref="WordPress.CodeAnalysis.AssignmentInCondition">
-        <type>error</type>
-    </rule>
-
 	<rule ref="WordPress.PHP.StrictInArray">
         <type>error</type>
     </rule>
 
-	<rule ref="WordPress.PHP.StrictComparisons">
+	<rule ref="Generic.CodeAnalysis.AssignmentInCondition">
+        <type>error</type>
+    </rule>
+
+	<rule ref="Universal.Operators.StrictComparisons">
         <type>error</type>
     </rule>
 

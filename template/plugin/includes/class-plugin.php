@@ -181,6 +181,7 @@ class Plugin extends Framework\Loader {
 		$this->abspath  = dirname( {{wp.shortname}}_FILE ) . '/';
 		$this->baseurl  = plugin_dir_url( {{wp.shortname}}_FILE );
 		$this->basename = plugin_basename( {{wp.shortname}}_FILE );
+		define( 'AWESOME9_FRAMEWORK_BASE_URL', $this->baseurl . '/assets/awesome9/' );
 
 		return $this;
 	}
