@@ -11,7 +11,7 @@ import path from 'path';
 /**
  * Internal Dependencies
  */
-import { getSetting, writeFile, filenameToHeading, heading, getProjectRoot, msgErrorTitle, getTemplateFile, compileTemplate } from "../utilities/index.js";
+import { getSetting, writeFile, filenameToHeading, heading, getProjectRoot, msgErrorTitle, getTemplateFile, compileTemplate, runCommand } from "../utilities/index.js";
 
 function templateName(options)  {
 	const length = Object.keys(options).length
@@ -49,6 +49,7 @@ export default (classname, description, options) => {
 
 		const content = compileTemplate(getTemplateFile(`files/${template}.php`), data);
 		writeFile(folder, `class-${filename}`, content);
+		runCommand( 'composer', [ 'dump' ], () => {} );
 	}
 	catch (err) {
 		msgErrorTitle('We failed!!!');
