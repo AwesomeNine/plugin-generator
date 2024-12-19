@@ -50,7 +50,9 @@ class Assets_Registry extends Framework\Assets_Registry {
 	 *
 	 * @return void
 	 */
-	public function register_styles(): void {}
+	public function register_styles(): void {
+		wp_register_style( 'ui-toolkit', {{functionName}}()->baseurl . 'assets/css/ui-toolkit.css', [], $this->get_version() );
+	}
 
 	/**
 	 * Register scripts

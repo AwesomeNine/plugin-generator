@@ -9,16 +9,11 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				brand: '#0074a2',
-				wordpress: '#2271b1',
-				'wordpress-dark': '#135e96',
-				secondary: '#b4cae0',
-			},
-			backgroundColor: {
-				primary: '#f8f9fa',
+				primary: 'rgb(var(--awesome-color-primary))',
+				'primary-hover': 'rgb(var(--awesome-color-primary-hover))',
 			},
 			borderColor: {
-				primary: '#b5bfc9',
+				primary: 'rgb(var(--awesome-border-color))',
 			},
 		},
 	},

@@ -127,6 +127,9 @@ function preparePluginFiles(next) {
 	const files =[
 		'/assets/scss/ui-toolkit.scss',
 		'/includes/admin/class-admin.php',
+		'/includes/admin/class-screens.php',
+		'/includes/admin/pages/class-dashboard.php',
+		'/includes/admin/pages/class-settings.php',
 		'/includes/frontend/class-frontend.php',
 		'/includes/installation/class-install.php',
 		'/includes/installation/class-uninstall.php',
@@ -134,7 +137,6 @@ function preparePluginFiles(next) {
 		'/includes/class-autoloader.php',
 		'/includes/class-constants.php',
 		'/includes/class-entities.php',
-		// '/includes/class-options.php',
 		'/includes/class-plugin.php',
 		'/includes/class-upgrades.php',
 		'/functions.php',

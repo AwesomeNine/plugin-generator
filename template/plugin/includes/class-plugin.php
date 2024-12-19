@@ -10,7 +10,6 @@
 namespace {{misc.package}};
 
 use Awesome9\Framework;
-use Awesome9\Framework\Toolkit_Preview;
 use {{misc.package}}\Installation\Install;
 
 defined( 'ABSPATH' ) || exit;
@@ -159,7 +158,7 @@ class Plugin extends Framework\Loader {
 
 		$this->register_initializer( Upgrades::class );
 		$this->register_integration( Admin\Admin::class );
-		$this->register_integration( Toolkit_Preview::class );
+		$this->register_integration( Admin\Screens::class, 'screens' );
 	}
 
 	/**
@@ -183,7 +182,6 @@ class Plugin extends Framework\Loader {
 		$this->abspath  = dirname( {{wp.shortname}}_FILE ) . '/';
 		$this->baseurl  = plugin_dir_url( {{wp.shortname}}_FILE );
 		$this->basename = plugin_basename( {{wp.shortname}}_FILE );
-		define( 'AWESOME9_FRAMEWORK_BASE_URL', $this->baseurl . '/assets/awesome9/' );
 
 		return $this;
 	}
