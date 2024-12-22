@@ -47,6 +47,7 @@ function setPluginData(next) {
 		pluginData.includeFolder,
 		path.join(pluginData.includeFolder, 'abstracts'),
 		path.join(pluginData.includeFolder, 'admin'),
+		path.join(pluginData.includeFolder, 'admin/pages'),
 		path.join(pluginData.includeFolder, 'frontend'),
 		path.join(pluginData.includeFolder, 'installation'),
 		path.join(pluginData.includeFolder, 'traits'),
@@ -88,19 +89,16 @@ function prepareConfigFiles(next) {
 	const files =[
 		'/.editorconfig',
 		'/.eslintignore',
-		'/.eslintrc.js',
 		'/.gitattributes',
 		'/.gitignore',
 		'/.phpcs.xml.dist',
 		'/.prettierignore',
-		'/.prettierrc.js',
 		'/.stylelintrc',
 		'/composer.json',
 		'/package.json',
 		'/postcss.config.js',
 		'/tailwind.config.js',
-		'/webpack.mix.js',
-		'/webpack.mix.local.js',
+		'/webpack.config.js',
 	]
 
 	write('Preparing configuration files...')
@@ -126,6 +124,7 @@ function preparePluginFiles(next) {
 	const template = pluginData.template + '/plugin'
 	const files =[
 		'/assets/scss/ui-toolkit.scss',
+		'/assets/src/ui-toolkit.scss',
 		'/includes/admin/class-admin.php',
 		'/includes/admin/class-screens.php',
 		'/includes/admin/pages/class-dashboard.php',
@@ -189,26 +188,13 @@ function installComposerPackages(next) {
 
 function installNodePackages(next) {
 	const packages =[
-		'@wordpress/eslint-plugin',
-		'@wordpress/stylelint-config',
+		'@wordpress/scripts',
 		'async',
-		'browser-sync',
-		'browser-sync-webpack-plugin',
-		'chalk@4.1.2',
-		'eslint-plugin-prettier',
 		'husky',
-		'laravel-mix',
-		'laravel-mix-tailwind',
 		'lint-staged',
-		'mix-tailwindcss',
-		'postcss',
-		'prettier',
-		'resolve-url-loader',
-		'sass',
-		'sass-loader',
 		'shelljs',
 		'tailwindcss',
-		'webpack',
+		'webpack-cli',
 	]
 
 	heading( 'Node Packages' )

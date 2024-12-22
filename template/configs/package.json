@@ -14,45 +14,32 @@
 		"url": "https://github.com/awesomenine/{{package.name}}/issues"
 	},
 	"scripts": {
+		"build": "wp-scripts build",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"lint:md:docs": "wp-scripts lint-md-docs",
+		"lint:pkg-json": "wp-scripts lint-pkg-json",
+		"lint:php": "./tools/phpcs.sh",
+		"lint:staged": "lint-staged",
+		"plugin-zip": "wp-scripts plugin-zip",
 		"prepare": "husky install",
-		"dev": "mix",
-		"watch": "mix watch",
-		"watch-poll": "mix watch -- --watch-options-poll=1000",
-		"hot": "mix watch --hot",
-		"build": "mix --production",
-		"lint": "lint-staged",
-		"lint:css": "stylelint \"**/*.css\" --cache",
-		"lint:scss": "stylelint \"**/*.scss\" --cache",
-		"lint:js": "eslint . --cache",
-		"lint:p": "prettier -c .",
-		"lint:pw": "prettier -w .",
-		"lint:php": "vendor/bin/phpcs",
-		"ls-phpcs": "./tools/phpcs.sh"
+		"start": "wp-scripts start",
+		"test:e2e": "wp-scripts test-e2e",
+		"test:unit": "wp-scripts test-unit-js",
+		"update": "wp-scripts packages-update"
 	},
-	"devDependencies": {
-	},
-	"browserslist": [
-		"> 1%",
-		"last 1 Android versions",
-		"last 1 ChromeAndroid versions",
-		"last 2 Chrome versions",
-		"last 2 Firefox versions",
-		"last 2 Safari versions",
-		"last 2 iOS versions",
-		"last 2 Edge versions",
-		"last 2 Opera versions"
-	],
 	"lint-staged": {
 		"*.js": [
-			"prettier -c",
-			"eslint --cache"
+			"format",
+			"lint:js"
 		],
 		"*.(sa|sc|c)ss": [
-			"prettier -c",
-			"stylelint --cache"
+			"format",
+			"lint:css"
 		],
-		"*.php": "vendor/bin/phpcs",
-		"*.md": "prettier -c"
+		"*.php": "lint:php",
+		"*.md": "format"
 	},
 	"wpPot": {
 		"output": "/languages/",

@@ -62,7 +62,7 @@ class Screens extends Manager {
 	 * @return void
 	 */
 	public function render_tab_content( $active, $tab, $args ): void {
-		echo '<div class="{{functionName}}-tab-content">';
+		echo '<div class="awesome9-tab-content">';
 		include $tab['filename'];
 		echo '</div>';
 	}
