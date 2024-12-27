@@ -39,7 +39,7 @@ function setPluginData(next) {
 		path.join(pluginData.folder, 'assets'),
 		path.join(pluginData.folder, 'assets/css'),
 		path.join(pluginData.folder, 'assets/js'),
-		path.join(pluginData.folder, 'assets/img'),
+		path.join(pluginData.folder, 'assets/images'),
 		path.join(pluginData.folder, pluginData.settings.paths.scss),
 		path.join(pluginData.folder, pluginData.settings.paths.javascript),
 
@@ -123,8 +123,8 @@ function prepareConfigFiles(next) {
 function preparePluginFiles(next) {
 	const template = pluginData.template + '/plugin'
 	const files =[
-		'/assets/scss/ui-toolkit.scss',
-		'/assets/src/ui-toolkit.scss',
+		'/src/scss/ui-toolkit.scss',
+		'/src/ui-toolkit.js',
 		'/includes/admin/class-admin.php',
 		'/includes/admin/class-screens.php',
 		'/includes/admin/pages/class-dashboard.php',
@@ -195,6 +195,7 @@ function installNodePackages(next) {
 		'shelljs',
 		'tailwindcss',
 		'webpack-cli',
+		'browser-sync-webpack-plugin --force',
 	]
 
 	heading( 'Node Packages' )

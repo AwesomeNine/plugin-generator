@@ -1,6 +1,9 @@
+/**
+ * External Dependencies
+ */
 const path = require('path');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 // Add TailwindCSS to the SCSS rule
 defaultConfig.module.rules.forEach((rule) => {
@@ -28,24 +31,32 @@ defaultConfig.plugins.forEach((plugin) => {
 	if (plugin.constructor.name === 'MiniCssExtractPlugin') {
 		plugin.options.filename = 'css/[name].css';
 	}
+	if (plugin.constructor.name === 'CleanWebpackPlugin') {
+		plugin.cleanOnceBeforeBuildPatterns = [ '!fonts/**', '!images/**' ];
+	}
 });
 
 // Remove plugins.
-const pluginsToRemove = ['CleanWebpackPlugin', 'RtlCssPlugin'];
+const pluginsToRemove = ['RtlCssPlugin'];
 defaultConfig.plugins = defaultConfig.plugins.filter(
 	(plugin) => !pluginsToRemove.includes(plugin.constructor.name)
 );
 
-// Replace the existing CleanWebpackPlugin with a customized version
-defaultConfig.plugins.push( new CleanWebpackPlugin({
-	cleanOnceBeforeBuildPatterns: ['!fonts/**', '!img/**', '!src/**', '!scss/**' ],
-	cleanStaleWebpackAssets: false,
-}));
+if (!isProduction) {
+	defaultConfig.plugins.push(new BrowserSyncPlugin({
+		host: 'localhost',
+		port: 3000,
+		proxy: '{{misc.proxy}}',
+		files: ['**/*.php'],
+	}));
+}
+
+const basePath = path.resolve(__dirname, 'src');
 
 module.exports = {
 	...defaultConfig,
 	entry: {
-		'ui-toolkit': path.resolve(__dirname, 'assets/src/ui-toolkit.js'),
+		'ui-toolkit': path.join(basePath, '/ui-toolkit.js'),
 	},
 	output: {
 		filename: 'js/[name].js', // Dynamically generate output file names
