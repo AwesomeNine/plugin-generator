@@ -37,9 +37,8 @@ function setPluginData(next) {
 
 		// Assets
 		path.join(pluginData.folder, 'assets'),
-		path.join(pluginData.folder, 'assets/css'),
-		path.join(pluginData.folder, 'assets/js'),
 		path.join(pluginData.folder, 'assets/images'),
+		path.join(pluginData.folder, 'src'),
 		path.join(pluginData.folder, pluginData.settings.paths.scss),
 		path.join(pluginData.folder, pluginData.settings.paths.javascript),
 
@@ -123,8 +122,8 @@ function prepareConfigFiles(next) {
 function preparePluginFiles(next) {
 	const template = pluginData.template + '/plugin'
 	const files =[
-		'/src/scss/ui-toolkit.scss',
-		'/src/ui-toolkit.js',
+		'/src/scss/ui-toolkit.css',
+		'/src/js/ui-toolkit.js',
 		'/includes/admin/class-admin.php',
 		'/includes/admin/class-screens.php',
 		'/includes/admin/pages/class-dashboard.php',
@@ -190,12 +189,13 @@ function installNodePackages(next) {
 	const packages =[
 		'@wordpress/scripts',
 		'async',
+		'cssnano',
 		'husky',
 		'lint-staged',
+		'postcss',
 		'shelljs',
 		'tailwindcss',
 		'webpack-cli',
-		'browser-sync-webpack-plugin --force',
 	]
 
 	heading( 'Node Packages' )

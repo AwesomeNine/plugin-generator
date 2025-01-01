@@ -2,6 +2,7 @@
 module.exports = {
 	content: [
 		"./{{paths.javascript}}/**/*.js",
+		"./{{paths.javascript}}/**/*.jsx",
 		"./{{paths.php}}/**/*.php",
 		"./{{paths.views}}/**/*.php",
 		"./vendor/awesome9/framework/views/**/*.php",

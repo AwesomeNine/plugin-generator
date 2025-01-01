@@ -25,6 +25,7 @@
 		"plugin-zip": "wp-scripts plugin-zip",
 		"prepare": "husky install",
 		"start": "wp-scripts start",
+		"start:hot": "wp-scripts start --hot",
 		"test:e2e": "wp-scripts test-e2e",
 		"test:unit": "wp-scripts test-unit-js",
 		"update": "wp-scripts packages-update"
