@@ -2,7 +2,7 @@
 /**
  * Constants.
  *
- * @since   {{product.version}}
+ * @since   {{wp.version}}
  * @package {{misc.package}}
  * @author  {{author.name}} <{{author.email}}>
  */

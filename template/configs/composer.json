@@ -1,8 +1,8 @@
 {
 	"name": "{{package.vendor}}/{{package.name}}",
     "description": "{{wp.description}}",
-	"homepage": "{{product.uri}}",
-	"version": "{{product.version}}",
+	"homepage": "{{company.url}}",
+	"version": "{{wp.version}}",
 	"type": "wordpress-plugin",
 	"license": "GPL-3.0-or-later",
 	"prefer-stable": true,
@@ -15,18 +15,18 @@
 		}
 	],
 	"require": {
-		"php": ">=7.4"
+		"php": ">=7.4",
+		"awesome9/framework": "dev-main"
 	},
 	"require-dev": {
-		"phpcompatibility/phpcompatibility-wp": "*",
-		"wp-coding-standards/wpcs": "^3.0.0"
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"wp-coding-standards/wpcs": "^3.0.0",
+		"wp-phpunit/wp-phpunit": "^6.3",
+		"yoast/phpunit-polyfills": "^1.0"
 	},
 	"config": {
 		"optimize-autoloader": true,
 		"sort-packages": true,
-		"platform": {
-			"php": "7.4"
-		},
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
@@ -41,6 +41,7 @@
 			"composer global require wp-cli/wp-cli",
 			"composer global require wp-cli/i18n-command"
 		],
-		"build": "sh ./tools/build.sh"
+		"test": "phpunit",
+		"test-install": "bash bin/install-wp-tests.sh wordpress_test root 'root' 127.0.0.1 latest"
 	}
 }

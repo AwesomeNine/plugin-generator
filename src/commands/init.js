@@ -14,50 +14,21 @@ export default async () => {
         // Product
         {
             type: 'input',
-            name: 'product.name',
+            name: 'wp.name',
             message: 'The name of your plugin/theme',
-            default: getSetting( 'product.name','Awesome9' ),
-        },
-        {
-            type: 'input',
-            name: 'product.uri',
-            message: 'The home page of the plugin/theme',
-            default: getSetting( 'product.url', 'https://awesome9.co' ),
-            filter: ( val ) => val.toLowerCase()
+            default: getSetting( 'wp.name', 'Awesome9' ),
         },
 		{
             type: 'input',
-            name: 'product.description',
+            name: 'wp.description',
             message: 'A short description of the plugin/theme',
-            default: getSetting( 'product.description' ),
+            default: getSetting( 'wp.description' ),
         },
 		{
             type: 'input',
-            name: 'product.version',
+            name: 'wp.version',
             message: 'The current version number of the plugin/theme',
-            default: getSetting( 'product.version', '1.0.0' ),
-            filter: ( val ) => val.toLowerCase()
-        },
-
-        // Author
-        {
-            type: 'input',
-            name: 'author.name',
-            message: 'The name of the author. Multiple authors may be listed using commas',
-            default: getSetting( 'author.name', 'Shakeeb Ahmed' ),
-        },
-        {
-            type: 'input',
-            name: 'author.email',
-            message: 'The email of the author',
-            default: getSetting( 'author.email', 'me@shakeebahmed.com' ),
-            filter: ( val ) => val.toLowerCase()
-        },
-        {
-            type: 'input',
-            name: 'author.url',
-            message: 'The author’s website or profile on another website',
-            default: getSetting( 'author.url', 'https://shakeebahmed.com' ),
+            default: getSetting( 'wp.version', '1.0.0' ),
             filter: ( val ) => val.toLowerCase()
         },
 
@@ -81,6 +52,13 @@ export default async () => {
             name: 'wp.textDomain',
             message: 'The gettext text domain of the plugin/theme',
             default: getSetting( 'wp.textDomain' ),
+            filter: ( val ) => val.toLowerCase()
+        },
+        {
+            type: 'input',
+            name: 'wp.glotpress',
+            message: 'The glotpress project slug',
+            default: getSetting( 'wp.glotpress' ),
             filter: ( val ) => val.toLowerCase()
         },
 
@@ -115,11 +93,12 @@ export default async () => {
         },
 		{
             type: 'input',
-            name: 'paths.scss',
-            message: 'The path to scss folder of the plugin/theme',
-            default: getSetting( 'paths.scss', 'assets/scss' ),
+            name: 'paths.css',
+            message: 'The path to css folder of the plugin/theme',
+            default: getSetting( 'paths.css', 'assets/css' ),
             filter: ( val ) => val.toLowerCase()
         },
+
         // Misc
         {
             type: 'input',
@@ -128,32 +107,17 @@ export default async () => {
             default: getSetting( 'misc.package' ),
             filter: ( val ) => val.replace( / /g, '' )
         },
-
 		{
             type: 'input',
             name: 'misc.prefix',
-            message: 'Enter prefix to be used for functions and constants',
+            message: 'Enter prefix to be used for functions',
             default: getSetting( 'misc.prefix' ),
         },
-
         {
             type: 'input',
-            name: 'misc.proxy',
-            message: 'Enter wordpress installation url',
-            default: getSetting( 'misc.proxy' ),
-        },
-
-        {
-            type: 'checkbox',
-            name: 'awesomePackages',
-            message: 'Select awesome packages to install',
-            choices: [
-                { value:'awesome9/database', name: 'Database: an expressive WordPress SQL query builder' },
-                { value:'awesome9/notifications', name: 'Notifications: ease of managing temporary and permanent notification within WordPress' },
-                { value:'awesome9/options', name: 'Options: ease of managing options within WordPress.' },
-                { value:'awesome9/requirements', name: 'Requirements: test environment requirements to run your plugin' },
-                { value:'awesome9/templates', name: 'Templates: wrapper for WordPress Filesystem and Templates' },
-            ]
+            name: 'misc.constprefix',
+            message: 'Enter prefix to be used for constants',
+            default: getSetting( 'misc.constprefix' ),
         },
     ]
 
@@ -161,26 +125,40 @@ export default async () => {
     inquirer.prompt( questions )
         .then( ( answers ) => {
             const date = new Date()
-            answers.year = date.getFullYear()
+            answers = {
+                ...answers,
+                year: date.getFullYear(),
+                company: {
+                    name: 'Awesome9',
+                    url: 'https://awesome9.co/',
+                },
+                author: {
+                    name: 'Awesome9',
+                    email: 'info@awesome9.co',
+                    url: 'https://awesome9.co/',
+                }
+            }
 
             answers.package = {
-                vendor: kebabCase( answers.author.name ),
-                name: kebabCase( answers.product.name )
+                vendor: kebabCase( answers.company.name ),
+                name: kebabCase( answers.wp.name )
             }
-            answers.functionName = answers.misc.package
-                .toLowerCase()
-                .replace( /\\/g, '_' )
-
 			answers.wp.textDomain = answers.wp.textDomain || answers.package.name
-			answers.wp.shortname = answers.misc.prefix.toUpperCase()
-				.replaceAll( '-', '' )
-				.replaceAll( '_', '' )
-			answers.wp.upgradeOptionName = answers.wp.textDomain.replaceAll( '-', '_' ) + '_version'
 
-			answers.awesomePackages = answers.awesomePackages || []
-			answers.awesomePackages.push('awesome9/framework')
-			answers.awesomePackages.push('awesome9/json')
-			answers.awesomePackages.push('awesome9/updates')
+            // Glotpress
+            answers.glotpress = false
+            if (answers.wp.glotpress) {
+                answers.glotpress = {
+                    project: answers.wp.glotpress,
+                    destination: "./languages/",
+                }
+            }
+
+            answers.wpPot = {
+                output: "/languages/",
+                file: `${answers.wp.textDomain}.pot`,
+                domain: answers.wp.textDomain
+            }
 
 			saveConfig( answers )
 			msgSuccessTitle('Config file created successfully!')

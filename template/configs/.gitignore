@@ -29,15 +29,17 @@ npm-debug.log
 node_modules/
 
 # Composer
-bin/composer/**/vendor/
 packages/**/tests/
 vendor/
+bin/composer/**/vendor/
 
 # Support .gitkeep Files
 !.gitkeep
-webpack.mix.local.js
 mix-manifest.json
 
-# WP Browser Files
-tests/_output
-tests/.env
+# Unit and Acceptance Tests
+.phpunit.result.cache
+/test-results
+dev.config.json
+/playwright-report
+auth.json

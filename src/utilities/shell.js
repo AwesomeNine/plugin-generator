@@ -44,10 +44,10 @@ export function runCommand( command, args, callback ) {
  *
  * @returns {void}
  */
-export function execCommand( command, callback ) {
+export function execCommand( command, callback, options = {} ) {
 	if ('string' !== typeof command) {
 		command = command.join(' ')
 	}
 
-    exec( command, (error, stdout, stderr) => callback(stdout, error, stderr) )
+    exec( command, options, (error, stdout, stderr) => callback(stdout, error, stderr) )
 }

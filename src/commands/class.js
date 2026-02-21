@@ -31,21 +31,26 @@ function templateName(options)  {
 	return hash[has] ?? 'class-empty';
 }
 
-export default (classname, description, options) => {
+export default (classname, options) => {
 	heading('Creating class file...')
+    const {
+		h: header = null,
+		d: description = null,
+	} = options
 
 	try {
 		const template = templateName(options);
 		const namespace = classname.split('\\');
 		const paths = classname.toLowerCase().split('\\');
-		const filename = paths.pop() + '.php';
-		const folder = path.join(getProjectRoot(), getSetting('paths.php'), paths.join('/'));
+		const filename = paths.pop().replace(/_/g, '-') + '.php';
+		const folder = path.join(getProjectRoot(), getSetting('paths.php'), paths.join('/'));;
 
 		// Data
 		const data = getSetting();
-		data.heading = description || filenameToHeading(filename) + ' template file';
+		data.heading = header || filenameToHeading(filename) + ' template file';
+		data.description = description || 'Brief description of the styles in this file';
 		data.className = namespace.pop();
-		data.namespace = '\\' + namespace.join('\\');
+		data.namespace = namespace.length > 0 ? '\\' + namespace.join('\\') : '';
 
 		const content = compileTemplate(getTemplateFile(`files/${template}.php`), data);
 		writeFile(folder, `class-${filename}`, content);

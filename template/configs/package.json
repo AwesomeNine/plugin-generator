@@ -1,50 +1,49 @@
 {
 	"name": "{{package.name}}",
-	"title": "{{product.name}}",
+	"title": "{{wp.name}}",
 	"description": "{{wp.description}}",
-	"homepage": "{{product.uri}}",
+	"homepage": "{{company.url}}",
 	"private": true,
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/awesomenine/{{package.name}}.git"
+		"url": "https://github.com/awesome9/{{package.name}}.git"
 	},
 	"author": "{{author.name}}",
 	"license": "GPL-3.0-or-later",
 	"bugs": {
-		"url": "https://github.com/awesomenine/{{package.name}}/issues"
+		"url": "https://github.com/awesome9/{{package.name}}/issues"
 	},
 	"scripts": {
-		"build": "wp-scripts build",
+		"build": "npx wp-advads build",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"lint:md:docs": "wp-scripts lint-md-docs",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
-		"lint:php": "./tools/phpcs.sh",
+		"lint:php": "./bin/phpcs.sh",
 		"lint:staged": "lint-staged",
-		"plugin-zip": "wp-scripts plugin-zip",
-		"prepare": "husky install",
+		"prepare": "husky",
 		"start": "wp-scripts start",
 		"start:hot": "wp-scripts start --hot",
-		"test:e2e": "wp-scripts test-e2e",
+		"update": "wp-scripts packages-update",
 		"test:unit": "wp-scripts test-unit-js",
-		"update": "wp-scripts packages-update"
+		"test:playwright": "wp-scripts test-playwright",
+		"test:playwright:help": "wp-scripts test-playwright --help",
+		"test:playwright:debug": "wp-scripts test-playwright --debug",
+		"test:playwright:headed": "wp-scripts test-playwright --headed"
+	},
+	"devDependencies": {
 	},
 	"lint-staged": {
 		"*.js": [
-			"format",
-			"lint:js"
+			"npm run format",
+			"npm run lint:js"
 		],
 		"*.(sa|sc|c)ss": [
-			"format",
-			"lint:css"
+			"npm run format",
+			"npm run lint:css"
 		],
-		"*.php": "lint:php",
-		"*.md": "format"
-	},
-	"wpPot": {
-		"output": "/languages/",
-		"file": "{{wp.textDomain}}.pot",
-		"domain": "{{wp.textDomain}}"
+		"*.php": "npm run lint:php",
+		"*.md": "npm run format"
 	}
 }

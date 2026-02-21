@@ -2,7 +2,7 @@
 /**
  * The class is responsible for locating and loading the autoloader file used in the plugin.
  *
- * @since   {{product.version}}
+ * @since   {{wp.version}}
  * @package {{misc.package}}
  * @author  {{author.name}} <{{author.email}}>
  */
@@ -54,7 +54,7 @@ class Autoloader {
 	 * @return string
 	 */
 	public function get_directory(): string {
-		return dirname( {{wp.shortname}}_FILE );
+		return dirname( {{misc.constprefix}}_FILE );
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Autoloader {
 		?>
 		<div class="notice notice-error">
 			<p>
-				<?php esc_html_e( 'Your installation of {{product.name}} is incomplete.', '{{wp.textDomain}}' ); ?>
+				<?php esc_html_e( 'Your installation of {{wp.name}} is incomplete.', '{{wp.textDomain}}' ); ?>
 			</p>
 		</div>
 		<?php

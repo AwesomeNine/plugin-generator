@@ -9,8 +9,12 @@ import path from 'path';
  */
 import { getSetting, writeFile, heading, filenameToHeading, getProjectRoot, msgErrorTitle, getTemplateFile, compileTemplate } from "../utilities/index.js";
 
-export default (name, description, options) => {
+export default (name, options) => {
 	heading('Creating javascript file...')
+    const {
+		h: header = null,
+		d: description = null,
+	} = options
 
 	try {
 		const paths = name.toLowerCase().split('\\')
@@ -19,7 +23,8 @@ export default (name, description, options) => {
 
 		// Data
 		const data = getSetting();
-		data.heading = description || filenameToHeading(name) + ' module.';
+        data.heading = header || filenameToHeading(name) + ' module.';
+		data.description = description || 'Description of the module';
 
 		const content = compileTemplate(getTemplateFile('files/javascript.js'), data);
 		writeFile(folder, filename, content);

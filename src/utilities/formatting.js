@@ -39,7 +39,6 @@ export function onSameLine(text) {
 	if (process.stdout.clearLine) {
 		process.stdout.clearLine(); // Clear the current line
 		process.stdout.cursorTo(0);  // Move the cursor to the start of the line
-		// process.stdout.write(message);
 	}
 
     console.log(text)
@@ -65,6 +64,28 @@ export function msgSuccessOnSameLine(text) {
  */
 export function msgErrorOnSameLine(text) {
     onSameLine(`${logSymbols.error} ${text}`)
+}
+
+/**
+ * Print success text
+ *
+ * @param {String} msg Text to print
+ *
+ * @returns {void}
+ */
+export function msgSuccess(msg) {
+	console.log( `${logSymbols.success} ${msg}` )
+}
+
+/**
+ * Print error text
+ *
+ * @param {String} msg Text to print
+ *
+ * @returns {void}
+ */
+export function msgError(msg) {
+	console.log( `${logSymbols.error} ${msg}` )
 }
 
 /**

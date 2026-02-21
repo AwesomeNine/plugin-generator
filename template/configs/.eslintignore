@@ -1,0 +1,12 @@
+# Files and folders related to build/test tools
+/build
+/node_modules
+/tests
+/vendor
+
+# Minified files
+*.min.js
+*.build.js
+/assets/dist/**
+/assets/vendor/**
+playwright.*.js

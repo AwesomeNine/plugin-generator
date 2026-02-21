@@ -1,12 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="{{product.name}}">
-	<description>{{product.name}} Coding Standards.</description>
-
-	<!-- PHPCS arguments: -->
-	<arg value="ps" />
-	<arg name="colors"/>
-	<arg name="parallel" value="20" />
-	<arg name="extensions" value="php"/>
+<ruleset name="{{company.name}}">
+	<description>{{company.name}} Coding Standards.</description>
 
 	<!-- Set files and paths: -->
 	<file>.</file>
@@ -19,10 +13,17 @@
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/index.php</exclude-pattern>
 
+	<!-- PHPCS arguments: -->
+	<arg value="ps" />
+	<arg name="basepath" value="./"/><!-- Strip the file paths down to the relevant bit -->
+	<arg name="colors"/>
+	<arg name="parallel" value="20" />
+	<arg name="extensions" value="php"/>
+
 	<!-- PHPCompatibility configs: -->
 	<config name="testVersion" value="7.4-" />
-	<config name="minimum_wp_version" value="5.6" />
-	<config name="minimum_supported_wp_version" value="5.6" />
+	<config name="minimum_supported_wp_version" value="5.4" />
+	<config name="minimum_wp_version" value="5.4" />
 
 	<rule ref="PHPCompatibility">
 		<include-pattern>*\.php$</include-pattern>
@@ -38,6 +39,11 @@
 		</properties>
 	</rule>
 
+	<rule ref="WordPress.DB.DirectDatabaseQuery">
+		<exclude name="WordPress.DB.DirectDatabaseQuery.NoCaching" />
+		<exclude name="WordPress.DB.DirectDatabaseQuery.DirectQuery" />
+	</rule>
+
 	<rule ref="WordPress.NamingConventions">
 		<exclude name="WordPress.NamingConventions.PrefixAllGlobals" />
 	</rule>
@@ -51,6 +57,7 @@
 	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
 		<exclude-pattern>includes/**/abstract-*.php</exclude-pattern>
 		<exclude-pattern>includes/**/interface-*.php</exclude-pattern>
+		<exclude-pattern>includes/**/type-*.php</exclude-pattern>
 	</rule>
 
 	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
@@ -62,15 +69,19 @@
 		<exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
 	</rule>
 
-	<!-- Enforce short arrays: -->
+	<!-- Make sure custom capabilities are recognized. -->
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="advanced_ads_edit_ads"/>
+			</property>
+		</properties>
+	</rule>
+
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 
 	<!-- Elevate these rules to an error, so it gets printed on commit   -->
     <rule ref="Generic.Formatting.MultipleStatementAlignment">
-        <type>error</type>
-    </rule>
-
-	<rule ref="WordPress.PHP.StrictInArray">
         <type>error</type>
     </rule>
 
@@ -82,10 +93,20 @@
         <type>error</type>
     </rule>
 
+	<rule ref="WordPress.PHP.StrictInArray">
+        <type>error</type>
+    </rule>
+
 	<!-- Method names MUST NOT be prefixed with a single underscore to indicate protected or private visibility. That is, an underscore prefix explicitly has no meaning. -->
     <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
         <type>error</type>
         <message>Method name "%s" must not be prefixed with an underscore to indicate visibility</message>
     </rule>
+
+	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
+		<properties>
+			<property name="blank_line_check" value="true"/>
+		</properties>
+	</rule>
 
 </ruleset>

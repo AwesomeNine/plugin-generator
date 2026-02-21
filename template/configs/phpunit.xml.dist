@@ -4,17 +4,13 @@
 	backupGlobals="false"
 	colors="true"
 	convertErrorsToExceptions="true"
-	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertDeprecationsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite>
-			<directory prefix="test-" suffix=".php">./tests/</directory>
+		<testsuite name="testing">
+			<directory suffix=".php">./tests/Unit/</directory>
 		</testsuite>
 	</testsuites>
-	<filter>
-		<whitelist>
-			<directory>./includes</directory>
-		</whitelist>
-	</filter>
 </phpunit>

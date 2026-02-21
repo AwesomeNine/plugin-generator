@@ -1,18 +1,18 @@
 <?php
 /**
- * {{product.name}}
+ * {{company.name}}
  *
  * @package   {{misc.package}}
  * @author    {{author.name}} <{{author.email}}>
- * @link      {{product.uri}}
+ * @link      {{company.url}}
  * @license   GPL-2.0+
- * @copyright Copyright (C) {{year}}, {{product.name}}.
+ * @copyright Copyright (C) {{year}}, {{company.name}}.
  *
  * @wordpress-plugin
- * Plugin Name:       {{product.name}}
- * Plugin URI:        {{product.uri}}/{{package.name}}
- * Description:       {{product.description}}
- * Version:           {{product.version}}
+ * Plugin Name:       {{wp.name}}
+ * Plugin URI:        {{company.url}}/{{wp.name}}
+ * Description:       {{wp.description}}
+ * Version:           {{wp.version}}
  * Author:            {{author.name}}
  * Author URI:        {{author.url}}
  * Text Domain:       {{wp.textDomain}}
@@ -32,27 +32,29 @@ if ( ! function_exists( 'add_filter' ) ) {
 	exit();
 }
 
-if ( defined( '{{wp.shortname}}_FILE' ) ) {
+if ( defined( '{{misc.constprefix}}_FILE' ) ) {
 	return;
 }
 
-define( '{{wp.shortname}}_FILE', __FILE__ );
-define( '{{wp.shortname}}_VERSION', '{{product.version}}' );
+define( '{{misc.constprefix}}_FILE', __FILE__ );
+define( '{{misc.constprefix}}_VERSION', '{{wp.version}}' );
 
 // Load the autoloader.
 require_once __DIR__ . '/includes/class-autoloader.php';
 \{{misc.package}}\Autoloader::get()->initialize();
 
-/**
- * Returns the main instance of {{product.name}}.
- *
- * @since {{product.version}}
- *
- * @return \{{misc.package}}\Plugin
- */
-function {{functionName}}() {
-	return \{{misc.package}}\Plugin::get();
-}
+if ( ! function_exists( '{{misc.prefix}}' ) ) {
+	/**
+	 * Returns the main instance of {{wp.name}}.
+	 *
+	 * @since {{wp.version}}
+	 *
+	 * @return \{{misc.package}}\Plugin
+	 */
+	function {{misc.prefix}}() {
+		return \{{misc.package}}\Plugin::get();
+	}
 
-// Start it.
-{{functionName}}();
+	// Start it.
+	{{misc.prefix}}();
+}

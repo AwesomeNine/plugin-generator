@@ -14,7 +14,8 @@ import fs from 'fs-extra';
 /**
  * Internal Dependencies
  */
-import { write, msgSuccessOnSameLine, onSameLine } from './formatting.js'
+import { FILE_NAME } from './settings.js';
+import { msgSuccessOnSameLine, onSameLine, write } from './formatting.js'
 
 let projectRoot = null
 
@@ -35,7 +36,7 @@ export function getProjectRoot(startDir = process.cwd()) {
 	projectRoot = startDir;
 
 	while (projectRoot !== path.parse(projectRoot).root) {
-		const possibleRootFile = path.join(projectRoot, 'wp.awesome9');
+		const possibleRootFile = path.join(projectRoot, FILE_NAME);
 		if (fs.existsSync(possibleRootFile)) {
 			return projectRoot;
 		}
@@ -44,7 +45,7 @@ export function getProjectRoot(startDir = process.cwd()) {
 		projectRoot = path.dirname(projectRoot);
   }
 
-  throw new Error('Project root not found. Make sure there is a wp.awesome9 file in the root directory.');
+  throw new Error(`Project root not found. Make sure there is a ${FILE_NAME} file in the root directory.`);
 }
 
 /**
@@ -115,12 +116,12 @@ export function deleteFile(name, file) {
  * @returns {void}
  */
 export function updateFileContent(fileName, messages, next, callback) {
-    process.stdout.write(messages.updating)
+    write(messages.updating)
 
     fs.readFile(fileName, (err, buffer) => {
         if ( null !== err ) {
             onSameLine(`${logSymbols.error} ${messages.failed}`)
-            return next(true)
+            return next()
         }
 
         const content = callback(buffer.toString())
@@ -128,7 +129,7 @@ export function updateFileContent(fileName, messages, next, callback) {
         fs.writeFile(fileName, content, (err) => {
             if ( null !== err ) {
                 onSameLine(`${logSymbols.error} ${messages.failed}`)
-                return next(true)
+                return next()
             }
 
             onSameLine(`${logSymbols.success} ${messages.updated}`)

@@ -2,7 +2,7 @@
 /**
  * The plugin bootstrap.
  *
- * @since   {{product.version}}
+ * @since   {{wp.version}}
  * @package {{misc.package}}
  * @author  {{author.name}} <{{author.email}}>
  */
@@ -23,27 +23,6 @@ defined( 'ABSPATH' ) || exit;
  * @property Framework\JSON  $json     JSON handler.
  */
 class Plugin extends Framework\Loader {
-
-	/**
-	 * Plugin absolute path
-	 *
-	 * @var string
-	 */
-	public $abspath = null;
-
-	/**
-	 * Plugin url
-	 *
-	 * @var string
-	 */
-	public $baseurl = null;
-
-	/**
-	 * Plugin basename
-	 *
-	 * @var string
-	 */
-	public $basename = null;
 
 	/**
 	 * Main instance
@@ -69,7 +48,7 @@ class Plugin extends Framework\Loader {
 	 * @return string
 	 */
 	public function get_version(): string {
-		return {{wp.shortname}}_VERSION;
+		return {{misc.constprefix}}_VERSION;
 	}
 
 	/**
@@ -78,14 +57,13 @@ class Plugin extends Framework\Loader {
 	 * @return void
 	 */
 	private function setup(): void {
-		$this->set_paths();
+		$this->define_constants();
 		$this->includes_functions();
 		$this->includes_common();
 		$this->includes_rest();
 		$this->includes_admin();
 		$this->includes_frontend();
 
-		add_action( 'init', [ $this, 'load_textdomain' ] );
 		add_action( 'plugins_loaded', [ $this, 'on_plugins_loaded' ], -1 );
 
 		// Load it all.
@@ -93,9 +71,9 @@ class Plugin extends Framework\Loader {
 	}
 
 	/**
-	 * When WordPress has loaded all plugins, trigger the `{{functionName}}-loaded` hook.
+	 * When WordPress has loaded all plugins, trigger the `{{misc.prefix}}-loaded` hook.
 	 *
-	 * @since 1.47.0
+	 * @since {{wp.version}}
 	 *
 	 * @return void
 	 */
@@ -103,20 +81,9 @@ class Plugin extends Framework\Loader {
 		/**
 		 * Action trigger after loading finished.
 		 *
-		 * @since 1.47.0
+		 * @since {{wp.version}}
 		 */
-		do_action( '{{functionName}}-loaded' );
-	}
-
-	/**
-	 * Setup internationlization.
-	 */
-	public function load_textdomain() {
-		load_plugin_textdomain(
-			'{{wp.textDomain}}',
-			false,
-			$this->basename . '/languages'
-		);
+		do_action( '{{misc.prefix}}-loaded' );
 	}
 
 	/**
@@ -133,9 +100,8 @@ class Plugin extends Framework\Loader {
 	 */
 	private function includes_common(): void {
 		$this->register_initializer( Install::class );
-		$this->register_integration( Entities::class );
 		$this->register_integration( Assets_Registry::class, 'registry' );
-		$this->register_integration( Framework\JSON::class, 'json', [ '{{functionName}}' ] );
+		$this->register_integration( Framework\JSON::class, 'json', [ '{{misc.prefix}}' ] );
 	}
 
 	/**
@@ -157,8 +123,6 @@ class Plugin extends Framework\Loader {
 		}
 
 		$this->register_initializer( Upgrades::class );
-		$this->register_integration( Admin\Admin::class );
-		$this->register_integration( Admin\Screens::class, 'screens' );
 	}
 
 	/**
@@ -178,11 +142,9 @@ class Plugin extends Framework\Loader {
 	 *
 	 * @return Plugin
 	 */
-	private function set_paths() {
-		$this->abspath  = dirname( {{wp.shortname}}_FILE ) . '/';
-		$this->baseurl  = plugin_dir_url( {{wp.shortname}}_FILE );
-		$this->basename = plugin_basename( {{wp.shortname}}_FILE );
-
-		return $this;
+	private function define_constants(): void {
+		$this->define( '{{misc.constprefix}}_ABSPATH', dirname( {{misc.constprefix}}_FILE ) . '/' );
+		$this->define( '{{misc.constprefix}}_BASE_URL', plugin_dir_url( {{misc.constprefix}}_FILE ) );
+		$this->define( '{{misc.constprefix}}_PLUGIN_BASENAME', plugin_basename( {{misc.constprefix}}_FILE ) );
 	}
 }

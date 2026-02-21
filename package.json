@@ -10,7 +10,7 @@
   },
   "main": "src/app.js",
   "bin": {
-    "wp-awesome9": "src/app.js"
+    "wp-awesome": "src/app.js"
   },
   "scripts": {
     "start": "node src/app.js"
@@ -31,11 +31,11 @@
   "homepage": "https://github.com/AwesomeNine/plugin-generator#readme",
   "dependencies": {
     "async": "^3.2.6",
-    "chalk": "^5.3.0",
-    "commander": "^12.1.0",
-    "fs-extra": "^11.2.0",
-    "inquirer": "^12.0.1",
-    "lodash": "^4.17.21",
-    "log-symbols": "^7.0.0"
+    "chalk": "^5.6.2",
+    "commander": "^14.0.3",
+    "fs-extra": "^11.3.3",
+    "inquirer": "^13.2.5",
+    "lodash": "^4.17.23",
+    "log-symbols": "^7.0.1"
   }
 }

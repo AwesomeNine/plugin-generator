@@ -14,7 +14,9 @@ import path from 'path'
  * Internal Dependencies
  */
 import { getProjectRoot } from './filesystem.js'
+import { write } from './formatting.js'
 
+export const FILE_NAME = 'wp.awesome'
 let settings = null
 
 /**
@@ -24,7 +26,7 @@ let settings = null
  */
 export function configFileExists() {
 	try {
-		const configPath = path.join(getProjectRoot(), 'wp.awesome9')
+		const configPath = path.join(getProjectRoot(), FILE_NAME)
 		return fs.existsSync(configPath);
 	} catch (err) {
 		return false;
@@ -38,7 +40,7 @@ export function configFileExists() {
  */
 export function readConfigFile() {
 	try {
-		const configPath = path.join(getProjectRoot(), 'wp.awesome9')
+		const configPath = path.join(getProjectRoot(), FILE_NAME)
 		const data = fs.readFileSync(configPath, 'utf-8');
 		return JSON.parse(data);
 	} catch (err) {
@@ -52,13 +54,14 @@ export function readConfigFile() {
  * @param {Object} data - The data object to save
  */
 export function saveConfig(data) {
-	console.log('Saving config file...');
+	write('Saving config file...');
 	try {
-		const savePath = path.join(process.cwd(), 'wp.awesome9')
+		const savePath = path.join(process.cwd(), FILE_NAME)
 		const jsonData = JSON.stringify(data, null, 2);
 		fs.writeFileSync(savePath, jsonData);
+		settings = data;
 	} catch (err) {
-		console.error('Error writing config file:', err);
+		write('Error writing config file:', err);
 		throw err;
 	}
 }

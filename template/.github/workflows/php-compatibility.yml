@@ -1,0 +1,36 @@
+name: PHP Compatibility & Coding Standards
+
+on: [pull_request]
+
+jobs:
+  phpcs:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['7.4', '8.0', '8.1', '8.2']
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, xml, zip, intl, pdo, mysql, dom, curl
+          tools: composer:v2
+
+      - name: Install PHPCompatibility
+        run: |
+          composer global require "squizlabs/php_codesniffer:^3.7" --no-interaction
+          composer global require "phpcompatibility/php-compatibility:^9.3" --no-interaction
+          phpcs --config-set installed_paths $HOME/.composer/vendor/phpcompatibility/php-compatibility
+
+      - name: Add phpcs to PATH
+        run: echo "$HOME/.composer/vendor/bin" >> $GITHUB_PATH
+
+      - name: Show installed standards
+        run: phpcs -i
+
+      - name: Run PHPCompatibility
+        run: phpcs --standard=PHPCompatibility --runtime-set testVersion ${{ matrix.php-versions }} --ignore=vendor,node_modules,packages $(git ls-files '*.php')

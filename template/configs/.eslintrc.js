@@ -1,6 +1,6 @@
 module.exports = {
 	root: true,
-	extends: ["plugin:@wordpress/eslint-plugin/recommended"],
+	extends: [ 'plugin:@wordpress/eslint-plugin/recommended' ],
 	globals: {
 		jQuery: true,
 		ajaxurl: true,

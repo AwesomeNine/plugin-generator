@@ -2,7 +2,7 @@
 /**
 * The class provides plugin installation routines.
  *
- * @since   {{product.version}}
+ * @since   {{wp.version}}
  * @package {{misc.package}}
  * @author  {{author.name}} <{{author.email}}>
  */
@@ -19,12 +19,13 @@ defined( 'ABSPATH' ) || exit;
 class Install extends Base {
 
 	/**
-	 * Plugin base file
+	 * Runs this initializer.
 	 *
-	 * @var string
+	 * @return void
 	 */
-	protected function get_base_file(): string {
-		return {{wp.shortname}}_FILE;
+	public function initialize(): void {
+		$this->base_file = {{misc.constprefix}}_FILE;
+		parent::initialize();
 	}
 
 	/**

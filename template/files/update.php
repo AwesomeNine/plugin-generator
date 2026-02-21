@@ -1,8 +1,9 @@
 <?php
 /**
  * {{heading}}.
+ * {{description}}
  *
- * @since   {{product.version}}
+ * @since   {{wp.version}}
  * @package {{misc.package}}
  * @author  {{author.name}} <{{author.email}}>
  */
@@ -14,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return void
  */
-function {{functionName}}_upgrade_{{version}}(): void {
+function {{prefix}}_upgrade_{{version}}(): void {
 }
 
-{{functionName}}_upgrade_{{version}}();
+{{prefix}}_upgrade_{{version}}();

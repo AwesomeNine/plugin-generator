@@ -1,10 +1,10 @@
 /**
  * {{heading}}
  *
- * @since       {{product.version}}
+ * @since       {{wp.version}}
  * @package     {{misc.package}}
  * @author      {{author.name}} <{{author.email}}>
- * @description Description of the module.
+ * @description {{description}}
  */
 import jquery from 'jquery';
 

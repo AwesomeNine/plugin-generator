@@ -2,9 +2,9 @@
   "extends": "@wordpress/stylelint-config/scss",
   "ignoreFiles": [
 	  "**/*.js",
-	  "assets/css/**/*.css",
 	  "node_modules/**/*.css",
-	  "vendor/**/*.css"
+	  "vendor/**/*.css",
+	  "assets/dist/**/*.css"
   ],
   "rules": {
     "scss/at-rule-no-unknown": [
@@ -17,7 +17,8 @@
           "responsive",
           "screen",
           "tailwind",
-          "variants"
+          "theme",
+		  "source"
         ]
       }
     ],
@@ -30,7 +31,9 @@
           "variants",
           "responsive",
           "screen",
-		  "import"
+		  "import",
+		  "theme",
+		  "source"
         ]
       }
     ],
@@ -40,6 +43,9 @@
 			"ignore": ["first-nested" ]
 		}
 	],
-	"no-descending-specificity": null
+	"no-descending-specificity": null,
+	"no-invalid-position-at-import-rule": null,
+	"selector-class-pattern": null,
+	"selector-id-pattern": null
   }
 }

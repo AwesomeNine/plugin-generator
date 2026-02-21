@@ -2,7 +2,7 @@
 /**
  * Upgrades.
  *
- * @since   {{product.version}}
+ * @since   {{wp.version}}
  * @package {{misc.package}}
  * @author  {{author.name}} <{{author.email}}>
  */
@@ -19,12 +19,12 @@ defined( 'ABSPATH' ) || exit;
  */
 class Upgrades extends Updates implements Initializer_Interface {
 
-	const DB_VERSION = '{{product.version}}';
+	const DB_VERSION = '{{wp.version}}';
 
 	/**
 	 * Get updates that need to run.
 	 *
-	 * @since 1.0.0
+	 * @since {{wp.version}}
 	 *
 	 * @return array
 	 */
@@ -35,18 +35,18 @@ class Upgrades extends Updates implements Initializer_Interface {
 	/**
 	 * Get folder path
 	 *
-	 * @since  1.0.0
+	 * @since  {{wp.version}}
 	 *
 	 * @return string
 	 */
 	public function get_folder(): string {
-		return {{functionName}}()->abspath . '{{paths.updates}}/';
+		return {{misc.constprefix}}_ABSPATH . '{{paths.updates}}/';
 	}
 
 	/**
 	 * Get plugin version number
 	 *
-	 * @since  1.0.0
+	 * @since  {{wp.version}}
 	 *
 	 * @return string
 	 */
@@ -57,7 +57,7 @@ class Upgrades extends Updates implements Initializer_Interface {
 	/**
 	 * Get plugin option name.
 	 *
-	 * @since  1.0.0
+	 * @since  {{wp.version}}
 	 *
 	 * @return string
 	 */
@@ -76,7 +76,7 @@ class Upgrades extends Updates implements Initializer_Interface {
 		$this->hooks();
 
 		if ( $is_first_time ) {
-			update_option( $this->get_option_name(), '1.0.0' );
+			update_option( $this->get_option_name(), '{{wp.version}}' );
 			add_action( 'admin_init', [ $this, 'perform_updates' ] );
 		}
 	}

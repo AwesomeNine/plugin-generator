@@ -2,7 +2,7 @@
 /**
  * Functions that are directly available in WordPress themes (and plugins)
  *
- * @since   {{product.version}}
+ * @since   {{wp.version}}
  * @package {{misc.package}}
  * @author  {{author.name}} <{{author.email}}>
  */

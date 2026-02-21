@@ -1,0 +1,31 @@
+name: Playwright Tests
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'node'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install wp-env
+        run: npm install -g @wordpress/env
+
+      - name: Start WordPress environment
+        run: wp-env start
+
+      - name: Wait for WordPress
+        run: npx wait-on http://localhost:8888
+
+      - name: Run Playwright Tests
+        run: npm run test:playwright
