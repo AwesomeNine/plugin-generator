@@ -17,8 +17,8 @@ export function createConfigs(next) {
 	const files =[
 		'/.editorconfig',
 		'/.eslintignore',
-		'/.gitattributes',
-		'/.gitignore',
+		'/gitattributes',
+		'/gitignore',
 		'/.phpcs.xml.dist',
 		'/.prettierignore',
 		'/.stylelintrc',
