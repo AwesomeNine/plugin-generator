@@ -14,7 +14,7 @@
 		"url": "https://github.com/awesome9/{{package.name}}/issues"
 	},
 	"scripts": {
-		"build": "npx wp-advads build",
+		"build": "npx wp-awesome build",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",

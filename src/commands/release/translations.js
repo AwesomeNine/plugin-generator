@@ -23,7 +23,7 @@ export default function updateTranslations( next ) {
         return;
     }
 
-    execCommand( 'npx wp-advads translations', function(locales) {
+    execCommand( 'npx wp-awesome translations', function(locales) {
         locales = locales.split('\n').slice(4).slice(0,-1)
         console.log( logSymbols.success + ` Downloaded ${locales.length} files successfully` )
 

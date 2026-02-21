@@ -11,7 +11,7 @@ if ( fs.existsSync( jsonPath ) ) {
 }
 
 export default defineConfig( {
-	name: 'Advanced Ads',
+	name: 'Awesome9',
 	testDir: 'tests/Acceptance',
 	use: {
 		baseURL: 'http://localhost:8888',
